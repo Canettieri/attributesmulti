@@ -1,9 +1,9 @@
 ## Interface: 90001
-## Title: Titan Panel [|cff336699Attributes|r] Multi! |cff00aa00v5.0.1|r
+## Title: Titan Panel [|cff336699Attributes|r] Multi! |cff00aa00@project-version@|r
 ## Notes: Track your attributes values! Right-click on Titan Panel, go to "Combat" tab and enjoy.
 ## Notes-ptBR: Rastreie o valor de seus atributos! Clique com o botão direito no Painel Titan, vá na aba "Combate" e aproveite.
 ## Author: Canettieri
-## Version: 5.0.1
+## Version: @project-version@
 ## Dependencies: Titan
 Core\languages\enUS-default.lua
 Core\languages\deDE.lua
