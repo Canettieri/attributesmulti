@@ -31,11 +31,11 @@ end
 -----------------------------------------------
 local function UpdateAll(self)
 
-	local restState   = GetRestState();
-  local pXP, pMaxXP = UnitXP("player"), UnitXPMax("player");
-  local rPos = (pXP / pMaxXP) * 100;
-	local level = UnitLevel("player")
-	local exhaustionXP = GetXPExhaustion()
+	--local restState = GetRestState();
+	local pXP, pMaxXP = UnitXP("player"), UnitXPMax("player"); -- Quantidade atual e quantidade máxima do nível atual
+	local rPos = (pXP / pMaxXP) * 100; -- Porcentagem do nível atual
+	local level = UnitLevel("player") -- Nível do personagem
+	local exhaustionXP = GetXPExhaustion() -- Rest XP
 
 	AXP = pXP
 	MXP = pMaxXP
@@ -51,6 +51,7 @@ local eventsTable = {
 	PLAYER_ENTERING_WORLD = UpdateAll, -- Jogador entra no Mundo
 	PLAYER_UPDATE_RESTING = UpdateAll,
 	PLAYER_LEVEL_UP = UpdateAll,
+	UPDATE_EXHAUSTION = UpdateAll, -- Atualiza rest XP em tempo real
 }
 -----------------------------------------------
 local function GetButtonText(self, id)
@@ -59,23 +60,22 @@ local function GetButtonText(self, id)
 		local toUp = MXP - AXP
 		local restperc = (EXXP / ((MXP / 100) * 1.5))
 
-
-		local XPrest = "   |TInterface\\Icons\\spell_nature_sleep:0|t |cFFFFFFFF[|r|cffe6cc80"..(string.format("%.1f", restperc)).."%|r|cFFFFFFFF] "..(formatNumber(EXXP, '.'))
+		local XPrest = "   |TInterface\\Icons\\spell_nature_sleep:0|t |cFFFFFFFF[|r|cffe6cc80" .. (string.format("%.1f", restperc)) .. "%|r|cFFFFFFFF] " .. (formatNumber(EXXP, '.'))
 		if TitanGetVar(id, "HideRest") or EXXP == 0 then
 			XPrest = ""
 		end
 
-		local XPtext = "|cFFFFFFFF[|r"..CHARCOLOR..LVL.."|cFFFFFFFF]|r|cFF69FF69 "..(formatNumber(AXP, '.')).."|r|||cFFFFFFFF"..(formatNumber(MXP, '.')).." |cFFFF2e2e("..(formatNumber(toUp, '.'))..")|r |cFFFFFFFF[|cFF69FF69"..(string.format("%.1f", PERC)).."%|r|cFFFFFFFF]"
+		local XPtext = "|cFFFFFFFF[|r" .. CHARCOLOR .. LVL .. "|cFFFFFFFF]|r|cFF69FF69 " .. (formatNumber(AXP, '.')) .. "|r|||cFFFFFFFF" .. (formatNumber(MXP, '.')) .. " |cFFFF2e2e(" .. (formatNumber(toUp, '.')) .. ")|r |cFFFFFFFF[|cFF69FF69" .. (string.format("%.1f", PERC)) .. "%|r|cFFFFFFFF]"
 
-		local Btext = XPtext..XPrest
+		local Btext = XPtext .. XPrest
 		if TitanGetVar(id, "SimpleText") then
-			Btext = "|cFF69FF69 "..(formatNumber(AXP, '.')).."|r|||cFFFFFFFF"..(formatNumber(MXP, '.')).." |cFFFFFFFF[|cFF69FF69"..(string.format("%.1f", PERC)).."%|r|cFFFFFFFF] "
+			Btext = "|cFF69FF69 " .. (formatNumber(AXP, '.')) .. "|r|||cFFFFFFFF" .. (formatNumber(MXP, '.')) .. " |cFFFFFFFF[|cFF69FF69" .. (string.format("%.1f", PERC)) .. "%|r|cFFFFFFFF] "
 		end
 
-		return L["xp"]..": ", Btext
+		return L["xp"] .. ": ", Btext
 
 	else
-		return L["xp"]..": ", "|cFFFFFFFF[|r"..CHARCOLOR..LVL.."|cFFFFFFFF]|cFF69FF69 "..L["maxlvl"]
+		return L["xp"] .. ": ", "|cFFFFFFFF[|r" .. CHARCOLOR .. LVL .. "|cFFFFFFFF]|cFF69FF69 " .. L["maxlvl"]
 	end
 end
 -----------------------------------------------
@@ -84,19 +84,19 @@ local function GetTooltipText(self, id)
 		local toUp = MXP - AXP
 		local restperc = (EXXP / ((MXP / 100) * 1.5))
 
-		local AXPttp = L["actualXP"].."\t|cFFFFFFFF"..(formatNumber(AXP, '.')).."|r\n"
-		local MXPttp = L["needXP"].."\t|cFFFFFFFF"..(formatNumber(MXP, '.')).."|r\n"
-		local toUpttp = L["XPtoUp"].."\t|cFFFFFFFF"..(formatNumber(toUp, '.')).."|r\n"
-		local PERCttp = L["percentage"].."\t|cFFFFFFFF"..(string.format("%.1f", PERC)).."%|r"
-		local EXXPttp = L["restxp"].."\t|cFFFFFFFF"..(formatNumber(EXXP, '.')).."|r\n"
-		local PERCRttp = L["restprogr"].."\t|cFFFFFFFF"..(string.format("%.1f", restperc)).."%"
+		local AXPttp = L["actualXP"] .. "\t|cFFFFFFFF" .. (formatNumber(AXP, '.')) .. "|r\n"
+		local MXPttp = L["needXP"] .. "\t|cFFFFFFFF" .. (formatNumber(MXP, '.')) .. "|r\n"
+		local toUpttp = L["XPtoUp"] .. "\t|cFFFFFFFF" .. (formatNumber(toUp, '.')) .. "|r\n"
+		local PERCttp = L["percentage"] .. "\t|cFFFFFFFF" .. (string.format("%.1f", PERC)) .. "%|r"
+		local EXXPttp = L["restxp"] .. "\t|cFFFFFFFF" .. (formatNumber(EXXP, '.')) .. "|r\n"
+		local PERCRttp = L["restprogr"] .. "\t|cFFFFFFFF" .. (string.format("%.1f", restperc)) .. "%"
 
-		local restInttp = "\r\r"..L["restttp"]..EXXPttp..PERCRttp
+		local restInttp = "\n \n" .. L["restttp"] .. "\n" .. EXXPttp .. PERCRttp
 		if EXXP == 0 then
 			restInttp = ""
 		end
 
-		local ttpText = L["moreinfo"]..charname.."|cFFFFFFFF.|r\n \n"..AXPttp..MXPttp..toUpttp..PERCttp..restInttp
+		local ttpText = L["moreinfo"] .. charname .. "|cFFFFFFFF.|r\n \n" .. AXPttp .. MXPttp .. toUpttp .. PERCttp .. restInttp
 
 		return ttpText
 
@@ -144,7 +144,7 @@ end
 -----------------------------------------------
 L.Elib({
 	id = ID,
-	name = "Titan|cFFf9251a "..L["xp"].." Multi",
+	name = "Titan|cFFf9251a " .. L["xp"] .. " Multi",
 	tooltip = L["xp"],
 	icon = ICON,
 	category = "Information",
