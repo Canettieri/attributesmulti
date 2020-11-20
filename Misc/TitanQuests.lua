@@ -63,7 +63,7 @@ local function GetButtonText(self, id)
 		activedText = TitanUtils_GetHighlightText(activeQuests)
 	end
 
-	return L["quests"]..": ", "|cFFFFFFFF[|r|cFF69FF69"..completedQuests.."|r|cFFFFFFFF]|r "..activedText.."|||cFFFF2e2e"..maxNumQuests
+	return L["quests"]..": ", "|cFFFFFFFF[|r|cFF69FF69"..completedQuests.."|r|cFFFFFFFF]|r "..activedText.."|r|||cFFFF2e2e"..maxNumQuests
 end
 -----------------------------------------------
 local function GetTooltipText(self, id)

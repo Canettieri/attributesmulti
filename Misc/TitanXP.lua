@@ -14,7 +14,7 @@ local MXP
 local PERC
 local LVL
 local EXXP
-local CHARCOLOR = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr
+local CHARCOLOR = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr.."|r"
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 
 if UnitFactionGroup("Player") == "Alliance" then
