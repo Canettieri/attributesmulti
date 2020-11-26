@@ -1,6 +1,6 @@
 --[[
 Description: This plugin is part of the "Titan Panel [Attributes] Multi" addon. It shows your Intellect.
-Site: http://www.curse.com/addons/wow/titan-panel-attributes-multi
+Site: https://www.curseforge.com/wow/addons/titan-panel-attributes-multi
 Author: Canettieri
 Special Thanks to Eliote.
 --]]
