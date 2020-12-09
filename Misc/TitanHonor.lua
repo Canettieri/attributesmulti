@@ -55,34 +55,44 @@ local function GetTooltipText(self, id)
 	return L["hintpvp"].."\n \n"..L["hlvl"].."\t|cFFFFFFFF"..honorlevel.."|r\n"..L["hcurrent"].."\t|cFFFFFFFF"..honor.."|r\n"..L["hmax"].."\t|cFFFFFFFF"..honormax.."|r\n"..L["htoup"].."\t|cFFFFFFFF"..diff
 end
 -----------------------------------------------
-local function PrepareMenu(self, id)
-	TitanPanelRightClickMenu_AddTitle(TitanPlugins[id].menuText)
-	TitanPanelRightClickMenu_AddToggleIcon(id)
-	TitanPanelRightClickMenu_AddToggleLabelText(id)
+function PrepareMenu(eddm, self, id)
+	eddm.UIDropDownMenu_AddButton({
+		text = TitanPlugins[id].menuText,
+		hasArrow = false,
+		isTitle = true,
+		isUninteractable = true,
+		notCheckable = true
+	})
 
-	local info = UIDropDownMenu_CreateInfo();
+	local info = {};
 	info.text = L["simpleText"];
 	info.func = function() TitanToggleVar(id, "SimpleText"); TitanPanelButton_UpdateButton(id); end
 	info.checked = TitanGetVar(id, "SimpleText");
 	info.keepShownOnClick = true
-	L_UIDropDownMenu_AddButton(info);
+	eddm.UIDropDownMenu_AddButton(info);
 
-	local info = UIDropDownMenu_CreateInfo();
+	local info = {};
 	info.text = ACE["TITAN_CLOCK_MENU_DISPLAY_ON_RIGHT_SIDE"];
 	info.func = function() TitanToggleVar(id, "DisplayOnRightSide"); TitanPanel_InitPanelButtons(id); end
 	info.checked = TitanGetVar(id, "DisplayOnRightSide");
 	info.keepShownOnClick = true
-	L_UIDropDownMenu_AddButton(info);
+	eddm.UIDropDownMenu_AddButton(info);
 
-	TitanPanelRightClickMenu_AddSpacer()
-	TitanPanelRightClickMenu_AddCommand(ACE["TITAN_PANEL_MENU_HIDE"], id, TITAN_PANEL_MENU_FUNC_HIDE);
-	L_UIDropDownMenu_AddSeparator()
+	eddm.UIDropDownMenu_AddSpace();
+
+	eddm.UIDropDownMenu_AddButton({
+		notCheckable = true,
+		text = ACE["TITAN_PANEL_MENU_HIDE"],
+		func = function() TitanPanelRightClickMenu_Hide(id) end
+	})
+
+	eddm.UIDropDownMenu_AddSeparator();
 
 	info = {};
 	info.text = CLOSE;
 	info.notCheckable = true
 	info.keepShownOnClick = false
-	L_UIDropDownMenu_AddButton(info);
+	eddm.UIDropDownMenu_AddButton(info);
 end
 -----------------------------------------------
 L.Elib({

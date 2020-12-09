@@ -71,29 +71,39 @@ local function GetTooltipText(self, id)
 	return L["hintquest"].."\n \n"..L["compquest"].."\t|cFFFFFFFF"..completedQuests.."|r\n"..L["numquests"].."\t|cFFFFFFFF"..activeQuests.."|r\n"..L["maxquests"].."\t|cFFFFFFFF"..maxNumQuests
 end
 -----------------------------------------------
-local function PrepareMenu(self, id)
-	TitanPanelRightClickMenu_AddTitle(TitanPlugins[id].menuText)
-	TitanPanelRightClickMenu_AddToggleIcon(id)
-	TitanPanelRightClickMenu_AddToggleLabelText(id)
+function PrepareMenu(eddm, self, id)
+	eddm.UIDropDownMenu_AddButton({
+		text = TitanPlugins[id].menuText,
+		hasArrow = false,
+		isTitle = true,
+		isUninteractable = true,
+		notCheckable = true
+	})
 
-	local info = UIDropDownMenu_CreateInfo();
+	local info = {};
 	info = {};
 	info.text = ACE["TITAN_CLOCK_MENU_DISPLAY_ON_RIGHT_SIDE"];
 	info.func = ToggleRightSideDisplay;
 	info.arg1 = id
 	info.checked = TitanGetVar(id, "DisplayOnRightSide");
 	info.keepShownOnClick = true
-	L_UIDropDownMenu_AddButton(info);
+	eddm.UIDropDownMenu_AddButton(info);
 
-	TitanPanelRightClickMenu_AddSpacer();
-	TitanPanelRightClickMenu_AddCommand(ACE["TITAN_PANEL_MENU_HIDE"], id, TITAN_PANEL_MENU_FUNC_HIDE);
-	L_UIDropDownMenu_AddSeparator()
+	eddm.UIDropDownMenu_AddSpace();
+
+	eddm.UIDropDownMenu_AddButton({
+		notCheckable = true,
+		text = ACE["TITAN_PANEL_MENU_HIDE"],
+		func = function() TitanPanelRightClickMenu_Hide(id) end
+	})
+
+	eddm.UIDropDownMenu_AddSeparator();
 
 	info = {};
 	info.text = CLOSE;
 	info.notCheckable = true
 	info.keepShownOnClick = false
-	L_UIDropDownMenu_AddButton(info);
+	eddm.UIDropDownMenu_AddButton(info);
 end
 -----------------------------------------------
 L.Elib({
