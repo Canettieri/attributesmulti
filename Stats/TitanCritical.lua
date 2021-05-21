@@ -8,7 +8,7 @@ Special Thanks to Eliote.
 local ADDON_NAME, L = ...;
 local version = GetAddOnMetadata(ADDON_NAME, "Version")
 local ID = "Titan_CTCM"
-local CR = 0
+local critDmg = 0
 local startattribute
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 -----------------------------------------------
@@ -18,11 +18,39 @@ local function OnClick(self, button)
 	end
 end
 -----------------------------------------------
-local function OnUpdate(self, id)
-	local critical = GetCritChance() or 0;
+local function GetCrit()
+	-- from Blizzards PaperDollFrame.lua
+	local rating;
+	local spellCrit, rangedCrit, meleeCrit;
+	local critChance;
+	-- Start at 2 to skip physical damage
+	local holySchool = 2;
+	local minCrit = GetSpellCritChance(holySchool);
+	for i=(holySchool+1), MAX_SPELL_SCHOOLS do
+		spellCrit = GetSpellCritChance(i);
+		minCrit = min(minCrit, spellCrit);
+	end
+	spellCrit = minCrit
+	rangedCrit = GetRangedCritChance();
+	meleeCrit = GetCritChance();
+	if (spellCrit >= rangedCrit and spellCrit >= meleeCrit) then
+		critChance = spellCrit;
+		rating = CR_CRIT_SPELL;
+	elseif (rangedCrit >= meleeCrit) then
+		critChance = rangedCrit;
+		rating = CR_CRIT_RANGED;
+	else
+		critChance = meleeCrit;
+		rating = CR_CRIT_MELEE;
+	end
 
-	if CR == critical then return end
-	CR = critical
+	return rating, critChance
+end
+-----------------------------------------------
+local function OnUpdate(self, id)
+	local rating, critChance = GetCrit()
+	if critDmg == critChance then return end
+	critDmg = critChance
 
 	TitanPanelButton_UpdateButton(id)
 	return true
@@ -31,14 +59,14 @@ end
 local function GetButtonText(self, id)
 	local BarBalanceText = ""
 	if TitanGetVar(ID, "ShowBarBalance") then
-		if (CR - startattribute) > 0 then
-			BarBalanceText = " |cFF69FF69["..(string.format("%.2f", (CR - startattribute))).."%".."]"
-		elseif (CR - startattribute) < 0 then
-			BarBalanceText = " |cFFFF2e2e["..(string.format("%.2f", (CR - startattribute))).."%".."]"
+		if (critDmg - startattribute) > 0 then
+			BarBalanceText = " |cFF69FF69["..(string.format("%.2f", (critDmg - startattribute))).."%".."]"
+		elseif (critDmg - startattribute) < 0 then
+			BarBalanceText = " |cFFFF2e2e["..(string.format("%.2f", (critDmg - startattribute))).."%".."]"
 		end
 	end
 
-	local CRtext = "|cFFFFFFFF"..string.format("%.2f", CR) .."%"
+	local CRtext = "|cFFFFFFFF"..string.format("%.2f", critDmg) .."%"
 
 	return L["critical"]..": ", CRtext..BarBalanceText
 end
@@ -46,14 +74,14 @@ end
 local function GetTooltipText(self, id)
 	local text = TitanUtils_GetHighlightText("0%")
 
-	local dif = CR - startattribute -- Cores da conta de valor
+	local dif = critDmg - startattribute -- Cores da conta de valor
 	if dif > 0 then
-		text = "|cFF69FF69"..(string.format("%.2f", (CR - startattribute))).."%"
+		text = "|cFF69FF69"..(string.format("%.2f", (critDmg - startattribute))).."%"
 	elseif dif < 0 then
-		text = "|cFFFF2e2e"..(string.format("%.2f", (CR - startattribute))).."%"
+		text = "|cFFFF2e2e"..(string.format("%.2f", (critDmg - startattribute))).."%"
 	end
 
-	return L["moreinfo"]..charname.."|cFFFFFFFF.|r\n \n"..L["critical"]..":\t|cFFFFFFFF"..string.format("%.2f", CR).."%".."|r\n"..L["session"].."\t"..text
+	return L["moreinfo"]..charname.."|cFFFFFFFF.|r\n \n"..L["critical"]..":\t|cFFFFFFFF"..string.format("%.2f", critDmg).."%".."|r\n"..L["session"].."\t"..text
 end
 -----------------------------------------------
 local eventsTable = {
@@ -61,8 +89,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = GetCritChance() or 0
-		CR = startattribute
+		_, startattribute = GetCrit()
+		critDmg = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)
 	end
