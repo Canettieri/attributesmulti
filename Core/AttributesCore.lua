@@ -68,6 +68,16 @@ function L.PrepareAttributesMenu(eddm, self, id)
 	info.keepShownOnClick = true
 	eddm.UIDropDownMenu_AddButton(info);
 
+	local info = {}
+	info.text = ACE["TITAN_PANEL_MENU_SHOW_LABEL_TEXT"]
+	info.notCheckable = false
+	info.func = function()
+		TitanPanelRightClickMenu_ToggleVar({ id, "ShowLabelText", nil })
+	end
+	info.checked = TitanGetVar(id, "ShowLabelText")
+	info.keepShownOnClick = true
+	eddm.UIDropDownMenu_AddButton(info)
+
 	eddm.UIDropDownMenu_AddSpace();
 
 	eddm.UIDropDownMenu_AddButton({

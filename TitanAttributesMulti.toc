@@ -5,6 +5,7 @@
 ## Author: Canettieri
 ## Version: @project-version@
 ## Dependencies: Titan
+## SavedVariables: TitanAttributesMultiDb
 Core\languages\enUS-default.lua
 Core\languages\deDE.lua
 Core\languages\esES.lua

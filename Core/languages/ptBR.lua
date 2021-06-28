@@ -87,4 +87,5 @@ L["hiderest"] = "Esconder XP de Descanso"
 L["session"] = "Saldo da sessão: "
 L["moreinfo"] = "|cFFB4EEB4Dica:|r |cFFFFFFFFClique para abrir mais\rinformações de "
 L["showbb"] = "Exibir Saldo da Sessão na Barra"
+L["AltChars"] = "|cFFFFFFFF[Todos Personagens]|r"
 end
