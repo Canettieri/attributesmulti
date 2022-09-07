@@ -62,6 +62,8 @@ L["maxquests"] = "Máximo de Missões:|cFFFFFFFF "
 L["rangedpower"] = "Poder de Longo Alcance"
 -- Spell Power
 L["spellpower"] = "Poder Mágico"
+-- Spirit (default)
+L["spirit"] = "Espírito"
 -- Stamina
 L["stamina"] = "Vigor"
 -- Strength

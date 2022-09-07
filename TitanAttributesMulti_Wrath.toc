@@ -1,11 +1,10 @@
-## Interface: 90207
-## Title: Titan Panel [|cff336699Attributes|r] Multi! |cff00aa00@project-version@|r
+## Interface: 30400
+## Title: Titan Panel [|cff336699Attributes|r] Multi! |cff00aa00@project-version@ Classic|r
 ## Notes: Track your attributes values! Right-click on Titan Panel, go to "Combat" tab and enjoy.
 ## Notes-ptBR: Rastreie o valor de seus atributos! Clique com o botão direito no Painel Titan, vá na aba "Combate" e aproveite.
 ## Author: Canettieri
 ## Version: @project-version@
-## Dependencies: Titan
-## SavedVariables: TitanAttributesMultiDb
+## Dependencies: TitanClassic
 ## X-Curse-Project-ID: 94732
 ## X-Wago-ID: Xb6XjOGp
 Core\languages\enUS-default.lua
@@ -14,29 +13,23 @@ Core\languages\esES.lua
 Core\languages\koKR.lua
 Core\languages\ptBR.lua
 Core\languages\ruRU.lua
-Core\ElioteDropDownMenu-1.0.lua
-Core\Elib-4.0.lua
-Core\AttributesCore.lua
+Classic\Core\Elib-3.0.lua
+Classic\Core\AttributesCore-Classic.lua
+Classic\TitanCritical.lua
+Classic\TitanQuests.lua
+Classic\TitanSpirit.lua
+Classic\TitanStamina.lua
+Classic\TitanXP-Classic.lua
+Misc\TitanAchievement.lua
 Stats\TitanAgility.lua
 Stats\TitanArmor.lua
 Stats\TitanBlock.lua
-Stats\TitanCritical.lua
 Stats\TitanDodge.lua
 Stats\TitanHaste.lua
 Stats\TitanIntellect.lua
 Stats\TitanManaRegen.lua
-Stats\TitanMastery.lua
 Stats\TitanMeleePower.lua
 Stats\TitanParry.lua
 Stats\TitanRangedPower.lua
 Stats\TitanSpellPower.lua
-Stats\TitanStamina.lua
 Stats\TitanStrength.lua
-Stats\TitanVersatility.lua
-Misc\TitanAchievement.lua
-Misc\TitanDeath.lua
-Misc\TitanHonor.lua
-Misc\TitanHonorableKills.lua
-Misc\TitanILVL.lua
-Misc\TitanQuests.lua
-Misc\TitanXP.lua
