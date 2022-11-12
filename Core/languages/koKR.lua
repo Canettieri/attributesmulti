@@ -27,8 +27,6 @@ L["manareg"] = "마나 회복량"
 L["mastery"] = "특화"
 -- Melee Power
 L["meleepower"] = "근접 전투력"
--- Multistrike
-L["multistrike"] = "연속 타격"
 -- Parry
 L["parry"] = "막기"
 L["parryt"] = "무기 막기"
