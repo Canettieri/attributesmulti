@@ -26,6 +26,8 @@ L["dodge"] = "Esquiva"
 L["dodget"] = "Chance de Esquiva"
 -- Haste
 L["haste"] = "Aceleração"
+-- Hit Chance
+L["hitCh"] = "Taxa de Acerto"
 -- Honor
 L["hxp"] = "Honra"
 L["hprestige"] = "Prestígio:|cFFFFFFFF "

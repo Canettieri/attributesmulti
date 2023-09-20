@@ -27,6 +27,8 @@ L["dodge"] = "Dodge"
 L["dodget"] = "Dodge Chance"
 -- Haste (default)
 L["haste"] = "Haste"
+-- Hit Chance (default)
+L["hitCh"] = "Hit Chance"
 -- Honor (default)
 L["hxp"] = "Honor"
 L["hprestige"] = "Prestige:|cFFFFFFFF "

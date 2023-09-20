@@ -1,5 +1,5 @@
 --[[
-Description: This plugin is part of the "Titan Panel [Attributes] Multi" addon. It shows your Spirit.
+Description: This plugin is part of the "Titan Panel [Attributes] Multi" addon. It shows your Hit Change.
 Site: https://www.curseforge.com/wow/addons/titan-panel-attributes-multi
 Author: Canettieri
 Special Thanks to Eliote.
@@ -7,8 +7,8 @@ Special Thanks to Eliote.
 
 local ADDON_NAME, L = ...;
 local version = GetAddOnMetadata(ADDON_NAME, "Version")
-local ID = "TITAN_SPRTM"
-local sprt = 0
+local ID = "TITAN_HTCHM"
+local hitChance = 0
 local startattribute = 0
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 -----------------------------------------------
@@ -19,10 +19,14 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local base, stat, posBuff, negBuff = UnitStat("player", 5) or 0;
+	local HitRating  = GetCombatRatingBonus(CR_HIT_MELEE)
+	if HitRating == nil then
+		HitRating = 0
+	end
+	local hitModifier = HitRating + GetHitModifier();
 
-	if sprt == base then return end
-	sprt = base
+	if hitChance == hitModifier then return end
+	hitChance = hitModifier
 
 	TitanPanelButton_UpdateButton(id)
 	return true
@@ -31,29 +35,29 @@ end
 local function GetButtonText(self, id)
 	local BarBalanceText = ""
 	if TitanGetVar(ID, "ShowBarBalance") then
-		if (sprt - startattribute) > 0 then
-			BarBalanceText = " |cFF69FF69["..(sprt - startattribute).."]"
-		elseif (sprt - startattribute) < 0 then
-			BarBalanceText = " |cFFFF2e2e["..(sprt - startattribute).."]"
+		if (hitChance - startattribute) > 0 then
+			BarBalanceText = " |cFF69FF69["..(hitChance - startattribute).."]"
+		elseif (hitChance - startattribute) < 0 then
+			BarBalanceText = " |cFFFF2e2e["..(hitChance - startattribute).."]"
 		end
 	end
 
-	local sprttext = "|cFFFFFFFF"..sprt
+	local hitChancetext = "|cFFFFFFFF"..hitChance
 
-	return L["spirit"]..": ", sprttext..BarBalanceText
+	return L["hitCh"]..": ", hitChancetext..BarBalanceText
 end
 -----------------------------------------------
 local function GetTooltipText(self, id)
 	local text = TitanUtils_GetHighlightText("0")
 
-	local dif = sprt - startattribute
+	local dif = hitChance - startattribute
 	if dif > 0 then
-		text = "|cFF69FF69"..(sprt - startattribute)
+		text = "|cFF69FF69"..(hitChance - startattribute)
 	elseif dif < 0 then
-		text = "|cFFFF2e2e"..(sprt - startattribute)
+		text = "|cFFFF2e2e"..(hitChance - startattribute)
 	end
 
-	return L["moreinfo"]..charname.."|cFFFFFFFF.|r\n \n"..L["spirit"]..":\t|cFFFFFFFF"..sprt.."|r\n"..L["session"].."\t"..text
+	return L["moreinfo"]..charname.."|cFFFFFFFF.|r\n \n"..L["hitCh"]..":\t|cFFFFFFFF"..hitChance.."|r\n"..L["session"].."\t"..text
 end
 -----------------------------------------------
 local eventsTable = {
@@ -62,7 +66,7 @@ local eventsTable = {
 		self.PLAYER_ENTERING_WORLD = nil
 
 		startattribute = UnitStat("player", 1) or 0
-		sprt = startattribute
+		hitChance = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)
 	end
@@ -70,9 +74,9 @@ local eventsTable = {
 -----------------------------------------------
 L.Elib({
 	id = ID,
-	name = "Titan|cFFf9251a "..L["spirit"].."|r".." Multi",
-	tooltip = L["spirit"],
-	icon = "Interface\\Icons\\inv_enchant_essencemagiclarge",
+	name = "Titan|cFFf9251a "..L["hitCh"].."|r".." Multi",
+	tooltip = L["hitCh"],
+	icon = "Interface\\Icons\\inv_sword_23",
 	category = "Information",
 	version = version,
 	onClick = OnClick,
