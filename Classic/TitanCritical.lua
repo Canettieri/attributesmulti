@@ -11,6 +11,7 @@ local ID = "Titan_CTCM"
 local critDmg = 0
 local startattribute
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
+local MAX_SPELL_SCHOOLS = 7
 -----------------------------------------------
 local function OnClick(self, button)
 	if (button == "LeftButton") then
