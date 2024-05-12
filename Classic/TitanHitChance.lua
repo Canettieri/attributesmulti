@@ -36,13 +36,13 @@ local function GetButtonText(self, id)
 	local BarBalanceText = ""
 	if TitanGetVar(ID, "ShowBarBalance") then
 		if (hitChance - startattribute) > 0 then
-			BarBalanceText = " |cFF69FF69["..(hitChance - startattribute).."]"
+			BarBalanceText = " |cFF69FF69["..(string.format("%.2f", (hitChance - startattribute))).."%".."]"
 		elseif (hitChance - startattribute) < 0 then
 			BarBalanceText = " |cFFFF2e2e["..(hitChance - startattribute).."]"
 		end
 	end
 
-	local hitChancetext = "|cFFFFFFFF"..hitChance
+	local hitChancetext = "|cFFFFFFFF"..(string.format("%.2f", hitChance)).."%"
 
 	return L["hitCh"]..": ", hitChancetext..BarBalanceText
 end
@@ -52,12 +52,12 @@ local function GetTooltipText(self, id)
 
 	local dif = hitChance - startattribute
 	if dif > 0 then
-		text = "|cFF69FF69"..(hitChance - startattribute)
+		text = "|cFF69FF69"..(string.format("%.2f", (hitChance - startattribute))).."%"
 	elseif dif < 0 then
-		text = "|cFFFF2e2e"..(hitChance - startattribute)
+		text = "|cFFFF2e2e"..(string.format("%.2f", (hitChance - startattribute))).."%"
 	end
 
-	return L["moreinfo"]..charname.."|cFFFFFFFF.|r\n \n"..L["hitCh"]..":\t|cFFFFFFFF"..hitChance.."|r\n"..L["session"].."\t"..text
+	return L["moreinfo"]..charname.."|cFFFFFFFF.|r\n \n"..L["hitCh"]..":\t|cFFFFFFFF"..(string.format("%.2f", hitChance)).."%".."|r\n"..L["session"].."\t"..text
 end
 -----------------------------------------------
 local eventsTable = {

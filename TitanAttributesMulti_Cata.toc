@@ -1,4 +1,4 @@
-## Interface: 30403
+## Interface: 40400
 ## Title: Titan Panel [|cff336699Attributes|r] Multi! |cff00aa00@project-version@ Classic|r
 ## Notes: Track your attributes values! Right-click on Titan Panel, go to "Combat" tab and enjoy.
 ## Notes-ptBR: Rastreie o valor de seus atributos! Clique com o botão direito no Painel Titan, vá na aba "Combate" e aproveite.
@@ -16,7 +16,7 @@ Core\languages\ruRU.lua
 Classic\Core\Elib-3.0.lua
 Classic\Core\AttributesCore-Classic.lua
 Classic\TitanCritical.lua
-Classic\TitanHitChange.lua
+Classic\TitanHitChance.lua
 Classic\TitanQuests.lua
 Classic\TitanSpirit.lua
 Classic\TitanStamina.lua
