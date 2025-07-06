@@ -17,11 +17,18 @@ local LVL
 local EXXP
 local CHARCOLOR = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr.."|r"
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
+local EXPLVL -- Nível máximo por expansão
 
 if UnitFactionGroup("Player") == "Alliance" then
-ICON = "1498974"
+ICON = (LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA) and "463450" or "1498974"
 else
-ICON = "1498975"
+ICON = (LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA) and "463451" or "1498975"
+end
+
+if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA then
+	EXPLVL = 90
+else
+	EXPLVL = 80
 end
 -----------------------------------------------
 local function OnClick(self, button)
@@ -57,7 +64,7 @@ local eventsTable = {
 -----------------------------------------------
 local function GetButtonText(self, id)
 
-	if LVL < 80 then
+	if LVL < EXPLVL then
 		local toUp = MXP - AXP
 		local restperc = (EXXP / ((MXP / 100) * 1.5))
 
@@ -81,7 +88,7 @@ local function GetButtonText(self, id)
 end
 -----------------------------------------------
 local function GetTooltipText(self, id)
-	if LVL < 80 then
+	if LVL < EXPLVL then
 		local toUp = MXP - AXP
 		local restperc = (EXXP / ((MXP / 100) * 1.5))
 
