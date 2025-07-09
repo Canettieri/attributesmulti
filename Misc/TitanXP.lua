@@ -20,15 +20,29 @@ local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].color
 local EXPLVL -- Nível máximo por expansão
 
 if UnitFactionGroup("Player") == "Alliance" then
-ICON = (LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA) and "463450" or "1498974"
+	if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
+		ICON = "236448"  -- Classic Era para Alliance
+	elseif LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA then
+		ICON = "463450"  -- Pandaria Alliance
+	else
+		ICON = "1498974" -- Retail Alliance
+	end
 else
-ICON = (LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA) and "463451" or "1498975"
+	if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
+		ICON = "236452"  -- Classic Era para Horde
+	elseif LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA then
+		ICON = "463451"  -- Pandaria Horde
+	else
+		ICON = "1498975" -- Retail Horde
+	end
 end
 
-if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA then
+if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA then -- nível máximo do clássico
 	EXPLVL = 90
+elseif LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then -- nível máximo do classic era
+	EXPLVL = 60
 else
-	EXPLVL = 80
+	EXPLVL = 80 -- nível máximo do retail
 end
 -----------------------------------------------
 local function OnClick(self, button)

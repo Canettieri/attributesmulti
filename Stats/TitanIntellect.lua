@@ -12,6 +12,12 @@ local ID = "TITAN_INLLM"
 local int = 0
 local startattribute = 0
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
+
+if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
+	ICON = "Interface\\Icons\\spell_holy_arcaneintellect"
+else
+	ICON = "Interface\\Icons\\spell_arcane_mindmastery"
+end
 -----------------------------------------------
 local function OnClick(self, button)
 	if (button == "LeftButton") then
@@ -73,7 +79,7 @@ L.Elib({
 	id = ID,
 	name = "Titan|cFFf9251a "..L["intellect"].."|r".." Multi",
 	tooltip = L["intellect"],
-	icon = "Interface\\Icons\\spell_arcane_mindmastery",
+	icon = ICON,
 	category = "Information",
 	version = version,
 	onClick = OnClick,
