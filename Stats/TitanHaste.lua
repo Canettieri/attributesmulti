@@ -12,6 +12,7 @@ local ID = "TITAN_HSTM"
 local HA = 0
 local startattribute
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
+local expansionLevel = GetExpansionLevel()
 -----------------------------------------------
 local function OnClick(self, button)
 	if (button == "LeftButton") then
@@ -73,7 +74,7 @@ L.Elib({
 	id = ID,
 	name = "Titan|cFFf9251a "..L["haste"].."|r".." Multi",
 	tooltip = L["haste"],
-	icon = "Interface\\Icons\\spell_holy_borrowedtime.blp",
+	icon = (expansionLevel >= 9) and "Interface\\Icons\\spell_holy_borrowedtime.blp" or "Interface\\Icons\\spell_nature_timestop",
 	category = "Information",
 	version = version,
 	onClick = OnClick,

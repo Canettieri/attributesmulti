@@ -12,6 +12,7 @@ local ID = "TITAN_STMNM"
 local STAM = 0
 local startattribute = 0
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
+local expansionLevel = GetExpansionLevel()
 -----------------------------------------------
 local function OnClick(self, button)
 	if (button == "LeftButton") then
@@ -73,7 +74,7 @@ L.Elib({
 	id = ID,
 	name = "Titan|cFFf9251a "..L["stamina"].."|r".." Multi",
 	tooltip = L["stamina"],
-	icon = "Interface\\Icons\\petbattle_health",
+	icon = (expansionLevel >= 9) and "Interface\\Icons\\petbattle_health" or "Interface\\Icons\\spell_shadow_bloodboil",
 	category = "Information",
 	version = version,
 	onClick = OnClick,

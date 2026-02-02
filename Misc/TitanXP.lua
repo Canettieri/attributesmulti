@@ -21,7 +21,9 @@ local EXPLVL -- Nível máximo por expansão
 
 if UnitFactionGroup("Player") == "Alliance" then
 	if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
-		ICON = "236448"  -- Classic Era para Alliance
+		ICON = "236448"  -- Classic Era Alliance
+	elseif LE_EXPANSION_LEVEL_CURRENT == LE_EXPANSION_BURNING_CRUSADE then
+		ICON = "132486"  -- TBC Alliance
 	elseif LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA then
 		ICON = "463450"  -- Pandaria Alliance
 	else
@@ -29,7 +31,9 @@ if UnitFactionGroup("Player") == "Alliance" then
 	end
 else
 	if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
-		ICON = "236452"  -- Classic Era para Horde
+		ICON = "236452"  -- Classic Era Horde
+	elseif LE_EXPANSION_LEVEL_CURRENT == LE_EXPANSION_BURNING_CRUSADE then
+		ICON = "132485"  -- TBC Horde
 	elseif LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA then
 		ICON = "463451"  -- Pandaria Horde
 	else
@@ -37,12 +41,14 @@ else
 	end
 end
 
-if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA then -- nível máximo do clássico
-	EXPLVL = 90
-elseif LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then -- nível máximo do classic era
-	EXPLVL = 60
+if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
+	EXPLVL = 60  -- Vanilla Classic
+elseif LE_EXPANSION_LEVEL_CURRENT == LE_EXPANSION_BURNING_CRUSADE then
+	EXPLVL = 70  -- The Burning Crusade
+elseif LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA then
+	EXPLVL = 90  -- Mists de Pandária
 else
-	EXPLVL = 80 -- nível máximo do retail
+	EXPLVL = 80  -- Retail
 end
 -----------------------------------------------
 local function OnClick(self, button)

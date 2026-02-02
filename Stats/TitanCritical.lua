@@ -12,6 +12,7 @@ local ID = "Titan_CTCM"
 local critDmg = 0
 local startattribute
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
+local expansionLevel = GetExpansionLevel()
 -----------------------------------------------
 local function OnClick(self, button)
 	if (button == "LeftButton") then
@@ -101,7 +102,7 @@ L.Elib({
 	id = ID,
 	name = "Titan|cFFf9251a "..L["critical"].."|r".." Multi",
 	tooltip = L["critical"],
-	icon = "Interface\\Icons\\ability_rogue_combatexpertise.blp",
+	icon = (expansionLevel >= 9) and "Interface\\Icons\\ability_rogue_combatexpertise.blp" or "Interface\\Icons\\ability_eyeoftheowl",
 	category = "Information",
 	version = version,
 	onClick = OnClick,
