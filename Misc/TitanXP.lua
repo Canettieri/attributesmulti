@@ -48,7 +48,7 @@ elseif LE_EXPANSION_LEVEL_CURRENT == LE_EXPANSION_BURNING_CRUSADE then
 elseif LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_MISTS_OF_PANDARIA then
 	EXPLVL = 90  -- Mists de Pandária
 else
-	EXPLVL = 80  -- Retail
+	EXPLVL = 90  -- Retail
 end
 -----------------------------------------------
 local function OnClick(self, button)
