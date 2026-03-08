@@ -14,6 +14,8 @@ L["agility"] = "Agility"
 -- Armor (default)
 L["armor"] = "Armor"
 L["armorpc"] = "|r\r\rPhysical Damage Reduction: "
+-- Avoidance (default)
+L["avoidance"] = "Avoidance"
 --- Block (default)
 L["block"] = "Block"
 L["blockt"] = "Block Chance"
@@ -46,6 +48,8 @@ L["overall"] = "Overall: "
 L["equipped"] = "Equipped: "
 -- Intellect (default)
 L["intellect"] = "Intellect"
+-- Leech (default)
+L["leech"] = "Leech"
 -- Mana Regeneration (default)
 L["manareg"] = "Mana Regeneration"
 -- Mastery (default)
@@ -63,6 +67,8 @@ L["numquests"] = "Actived Quests: "
 L["maxquests"] = "Maximum Quests: "
 -- Ranged Power (default)
 L["rangedpower"] = "Ranged Power"
+-- Speed (default)
+L["speed"] = "Speed"
 -- Spell Power (default)
  L["spellpower"] = "Spell Power"
 -- Spirit (default)

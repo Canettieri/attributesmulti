@@ -13,6 +13,8 @@ L["agility"] = "Agilidade"
 -- Armor
 L["armor"] = "Armadura"
 L["armorpc"] = "|r\r\rRedução de Dano Físco: "
+-- Avoidance (default)
+L["avoidance"] = "Evasiva"
 -- Block
 L["block"] = "Bloqueio"
 L["blockt"] = "Chance de Bloquear"
@@ -45,6 +47,8 @@ L["overall"] = "Geral: "
 L["equipped"] = "Equipado: "
 -- Intellect
 L["intellect"] = "Intelecto"
+-- Leech
+L["leech"] = "Sorver"
 -- Mana Regeneration
 L["manareg"] = "Regeneração de Mana"
 -- Mastery
@@ -62,6 +66,8 @@ L["numquests"] = "Missões Ativas:|cFFFFFFFF "
 L["maxquests"] = "Máximo de Missões:|cFFFFFFFF "
 -- Ranged Power
 L["rangedpower"] = "Poder de Longo Alcance"
+-- Speed
+L["speed"] = "Velocidade"
 -- Spell Power
 L["spellpower"] = "Poder Mágico"
 -- Spirit (default)
