@@ -19,11 +19,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local speed = GetSpeed and GetSpeed() or 0;
+	local speed = GetSpeed and GetSpeed()
 
-	if SP == speed then return end
+	-- Taint protection: wrap the comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		return SP == speed
+	end)
+	if not ok or unchanged then return true end
+
 	SP = speed
-
 	TitanPanelButton_UpdateButton(id)
 	return true
 end
@@ -61,7 +65,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = GetSpeed and GetSpeed() or 0
+		local ok, base = GetSpeed and pcall(GetSpeed) or false, 0
+		startattribute = ok and base or 0
 		SP = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

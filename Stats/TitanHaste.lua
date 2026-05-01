@@ -21,11 +21,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local haste = GetHaste() or 0;
+	local haste = GetHaste()
 
-	if HA == haste then return end
+	-- Taint protection: wrap the comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		return HA == haste
+	end)
+	if not ok or unchanged then return true end
+
 	HA = haste
-
 	TitanPanelButton_UpdateButton(id)
 	return true
 end
@@ -63,7 +67,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = GetHaste() or 0
+		local ok, base = pcall(GetHaste)
+		startattribute = ok and base or 0
 		HA = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

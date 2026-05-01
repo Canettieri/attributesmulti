@@ -21,11 +21,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local base, stat, posBuff, negBuff = UnitStat("player", 3) or 0;
+	local base = UnitStat("player", 3)
 
-	if STAM == base then return end
+	-- Taint protection: wrap the comparison in pcall to catch secret number errors
+	local ok, changed = pcall(function()
+		return STAM ~= base
+	end)
+	if not ok or not changed then return true end
+
 	STAM = base
-
 	TitanPanelButton_UpdateButton(id)
 	return true
 end
@@ -63,7 +67,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = UnitStat("player", 3) or 0
+		local base = UnitStat("player", 3)
+		startattribute = type(base) == "number" and base or 0
 		STAM = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

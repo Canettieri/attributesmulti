@@ -20,11 +20,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local block = GetBlockChance() or 0;
+	local block = GetBlockChance()
 
-	if BK == block then return end
+	-- Taint protection: wrap the comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		return BK == block
+	end)
+	if not ok or unchanged then return true end
+
 	BK = block
-
 	TitanPanelButton_UpdateButton(id)
 	return true
 end
@@ -62,7 +66,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = GetBlockChance() or 0
+		local ok, base = pcall(GetBlockChance)
+		startattribute = ok and base or 0
 		BK = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

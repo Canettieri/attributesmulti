@@ -20,10 +20,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local versaDone = GetCombatRatingBonus(29) or 0;
-	local versaTaken = GetCombatRatingBonus(31) or 0;
+	local versaDone = GetCombatRatingBonus(29)
+	local versaTaken = GetCombatRatingBonus(31)
 
-	if VD == versaDone and VT == versaTaken then return end
+	-- Taint protection: wrap the comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		return VD == versaDone and VT == versaTaken
+	end)
+	if not ok or unchanged then return true end
+
 	VD = versaDone
 	VT = versaTaken
 
@@ -69,9 +74,11 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattributeDone = GetCombatRatingBonus(29) or 0
+		local baseDone = GetCombatRatingBonus(29)
+		local baseTaken = GetCombatRatingBonus(31)
+		startattributeDone = type(baseDone) == "number" and baseDone or 0
 		VD = startattributeDone
-		startattributeTaken = GetCombatRatingBonus(31) or 0
+		startattributeTaken = type(baseTaken) == "number" and baseTaken or 0
 		VT = startattributeTaken
 
 		TitanPanelButton_UpdateButton(self.registry.id)

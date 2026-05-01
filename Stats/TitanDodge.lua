@@ -20,11 +20,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local dodge = GetDodgeChance() or 0;
+	local dodge = GetDodgeChance()
 
-	if DG == dodge then return end
+	-- Taint protection: wrap the comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		return DG == dodge
+	end)
+	if not ok or unchanged then return true end
+
 	DG = dodge
-
 	TitanPanelButton_UpdateButton(id)
 	return true
 end
@@ -62,7 +66,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = GetDodgeChance() or 0
+		local ok, base = pcall(GetDodgeChance)
+		startattribute = ok and base or 0
 		DG = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

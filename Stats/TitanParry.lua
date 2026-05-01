@@ -20,11 +20,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local parry = GetParryChance() or 0;
+	local parry = GetParryChance()
 
-	if PR == parry then return end
+	-- Taint protection: wrap the comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		return PR == parry
+	end)
+	if not ok or unchanged then return true end
+
 	PR = parry
-
 	TitanPanelButton_UpdateButton(id)
 	return true
 end
@@ -62,7 +66,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = GetParryChance() or 0
+		local ok, base = pcall(GetParryChance)
+		startattribute = ok and base or 0
 		PR = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

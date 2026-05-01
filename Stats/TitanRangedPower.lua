@@ -20,11 +20,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local base, posBuff, negBuff = UnitRangedAttackPower("player");
-	local rangedpower = (base and base + posBuff + negBuff) or 0;
-
-	if RP == rangedpower then return end
-	RP = rangedpower
+	-- Taint protection: wrap arithmetic and comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		local base, posBuff, negBuff = UnitRangedAttackPower("player")
+		local rangedpower = base + posBuff + negBuff
+		if RP == rangedpower then return true end
+		RP = rangedpower
+		return false
+	end)
+	if not ok or unchanged then return true end
 
 	TitanPanelButton_UpdateButton(id)
 	return true
@@ -63,7 +67,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = UnitRangedAttackPower("player") or 0
+		local ok, base, posBuff, negBuff = pcall(UnitRangedAttackPower, "player")
+		startattribute = ok and (base + posBuff + negBuff) or 0
 		RP = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

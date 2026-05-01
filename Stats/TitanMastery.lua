@@ -20,11 +20,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local mastery = GetMasteryEffect() or 0;
+	local mastery = GetMasteryEffect()
 
-	if MY == mastery then return end
+	-- Taint protection: wrap the comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		return MY == mastery
+	end)
+	if not ok or unchanged then return true end
+
 	MY = mastery
-
 	TitanPanelButton_UpdateButton(id)
 	return true
 end
@@ -62,7 +66,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = GetMasteryEffect() or 0
+		local ok, base = pcall(GetMasteryEffect)
+		startattribute = ok and base or 0
 		MY = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

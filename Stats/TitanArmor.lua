@@ -20,10 +20,14 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local base, effectiveArmor, armor, posBuff, negBuff = UnitArmor("player", 0)
-
-	if amr == armor then return end
-	amr = armor
+	-- Taint protection: wrap arithmetic and comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		local base, effectiveArmor, armor, posBuff, negBuff = UnitArmor("player", 0)
+		if amr == armor then return true end
+		amr = armor
+		return false
+	end)
+	if not ok or unchanged then return true end
 
 	TitanPanelButton_UpdateButton(id)
 	return true
@@ -62,7 +66,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = UnitArmor("player") or 0
+		local ok, base = pcall(UnitArmor, "player")
+		startattribute = ok and base or 0
 		amr = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

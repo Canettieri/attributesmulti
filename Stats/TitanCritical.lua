@@ -50,10 +50,16 @@ local function GetCrit()
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local rating, critChance = GetCrit()
-	if critDmg == critChance then return end
-	critDmg = critChance
+	-- Taint protection: wrap GetCrit in pcall to catch secret number errors
+	local ok, rating, critChance = pcall(GetCrit)
+	if not ok then return true end
 
+	local ok2, unchanged = pcall(function()
+		return critDmg == critChance
+	end)
+	if not ok2 or unchanged then return true end
+
+	critDmg = critChance
 	TitanPanelButton_UpdateButton(id)
 	return true
 end
@@ -91,7 +97,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		_, startattribute = GetCrit()
+		local ok, _, critChance = pcall(GetCrit)
+		startattribute = ok and critChance or 0
 		critDmg = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

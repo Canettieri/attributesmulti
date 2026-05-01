@@ -20,11 +20,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local base, casting = GetManaRegen();
+	local base = GetManaRegen()
 
-	if manaReg == base then return end
+	-- Taint protection: wrap the comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		return manaReg == base
+	end)
+	if not ok or unchanged then return true end
+
 	manaReg = base
-
 	TitanPanelButton_UpdateButton(id)
 	return true
 end
@@ -67,8 +71,9 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		manaReg = GetManaRegen();
-		startattribute = manaReg
+		local base = UnitStat("player", 3)
+		startattribute = type(base) == "number" and base or 0
+		STAM = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)
 	end

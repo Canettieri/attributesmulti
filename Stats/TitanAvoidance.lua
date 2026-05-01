@@ -19,11 +19,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local avoidance = GetAvoidance and GetAvoidance() or 0;
+	local avoidance = GetAvoidance and GetAvoidance()
 
-	if AV == avoidance then return end
+	-- Taint protection: wrap the comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		return AV == avoidance
+	end)
+	if not ok or unchanged then return true end
+
 	AV = avoidance
-
 	TitanPanelButton_UpdateButton(id)
 	return true
 end
@@ -61,7 +65,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = GetAvoidance and GetAvoidance() or 0
+		local ok, base = GetAvoidance and pcall(GetAvoidance) or false, 0
+		startattribute = ok and base or 0
 		AV = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

@@ -20,11 +20,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local base, posBuff, negBuff = UnitAttackPower("player");
-	local meleepower = (base and base + posBuff + negBuff) or 0;
-
-	if MP == meleepower then return end
-	MP = meleepower
+	-- Taint protection: wrap arithmetic and comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		local base, posBuff, negBuff = UnitAttackPower("player")
+		local meleepower = base + posBuff + negBuff
+		if MP == meleepower then return true end
+		MP = meleepower
+		return false
+	end)
+	if not ok or unchanged then return true end
 
 	TitanPanelButton_UpdateButton(id)
 	return true
@@ -63,7 +67,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = UnitAttackPower("player") or 0
+		local ok, base, posBuff, negBuff = pcall(UnitAttackPower, "player")
+		startattribute = ok and (base + posBuff + negBuff) or 0
 		MP = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

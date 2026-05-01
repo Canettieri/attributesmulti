@@ -20,12 +20,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local base = GetSpellBonusDamage(2);
-	local spellpower = base or 0;
+	local spellpower = GetSpellBonusDamage(2)
 
-	if SP == spellpower then return end
+	-- Taint protection: wrap the comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		return SP == spellpower
+	end)
+	if not ok or unchanged then return true end
+
 	SP = spellpower
-
 	TitanPanelButton_UpdateButton(id)
 	return true
 end
@@ -63,7 +66,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = GetSpellBonusDamage(2) or 0
+		local ok, base = pcall(GetSpellBonusDamage, 2)
+		startattribute = ok and base or 0
 		SP = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

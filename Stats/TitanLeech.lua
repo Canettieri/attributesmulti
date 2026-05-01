@@ -19,11 +19,15 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local leech = GetLifesteal and GetLifesteal() or 0;
+	local leech = GetLifesteal and GetLifesteal()
 
-	if LC == leech then return end
+	-- Taint protection: wrap the comparison in pcall to catch secret number errors
+	local ok, unchanged = pcall(function()
+		return LC == leech
+	end)
+	if not ok or unchanged then return true end
+
 	LC = leech
-
 	TitanPanelButton_UpdateButton(id)
 	return true
 end
@@ -61,7 +65,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = GetLifesteal and GetLifesteal() or 0
+		local ok, base = GetLifesteal and pcall(GetLifesteal) or false, 0
+		startattribute = ok and base or 0
 		LC = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)
