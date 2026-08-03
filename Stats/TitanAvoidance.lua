@@ -65,7 +65,7 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		local ok, base = GetAvoidance and pcall(GetAvoidance) or false, 0
+		local ok, base = pcall(function() return GetAvoidance and GetAvoidance() or 0 end)
 		startattribute = ok and base or 0
 		AV = startattribute
 

@@ -65,7 +65,7 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		local ok, base = GetSpeed and pcall(GetSpeed) or false, 0
+		local ok, base = pcall(function() return GetSpeed and GetSpeed() or 0 end)
 		startattribute = ok and base or 0
 		SP = startattribute
 
