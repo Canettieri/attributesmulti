@@ -16,17 +16,16 @@ Core\languages\ruRU.lua
 Core\ElioteDropDownMenu-1.0.lua
 Core\Elib-4.0.lua
 Core\AttributesCore.lua
-Classic\TitanCritical.lua
 Classic\TitanHitChance.lua
 Classic\TitanMastery.lua
 Classic\TitanQuests.lua
 Classic\TitanSpirit.lua
-Classic\TitanStamina.lua
 Misc\TitanXP.lua
 Misc\TitanAchievement.lua
 Stats\TitanAgility.lua
 Stats\TitanArmor.lua
 Stats\TitanBlock.lua
+Stats\TitanCritical.lua
 Stats\TitanDodge.lua
 Stats\TitanHaste.lua
 Stats\TitanIntellect.lua
@@ -35,4 +34,5 @@ Stats\TitanMeleePower.lua
 Stats\TitanParry.lua
 Stats\TitanRangedPower.lua
 Stats\TitanSpellPower.lua
+Stats\TitanStamina.lua
 Stats\TitanStrength.lua

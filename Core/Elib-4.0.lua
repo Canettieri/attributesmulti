@@ -126,20 +126,27 @@ function Elib.Register(easyObject)
 			end
 		end
 
-		EDDM.UIDropDownMenu_AddSeparator()
-
 		if menus then
-			initMenu(self, level, menus, id)
-			EDDM.UIDropDownMenu_AddButton({ text = "", notCheckable = true, notClickable = true, disabled = 1 })
+			local hasExtraItems = false
+			for _, item in ipairs(menus) do
+				if item.type ~= "rightSideToggle" then
+					hasExtraItems = true
+					break
+				end
+			end
+			if hasExtraItems then
+				EDDM.UIDropDownMenu_AddSeparator()
+				initMenu(self, level, menus, id)
+			end
 		end
 
+		EDDM.UIDropDownMenu_AddSeparator()
 		EDDM.UIDropDownMenu_AddButton({
 			notCheckable = true,
 			text = Titan_L["TITAN_PANEL_MENU_HIDE"],
 			func = function() TitanPanelRightClickMenu_Hide(id) end
 		})
-		EDDM.UIDropDownMenu_AddSeparator()
-		EDDM.UIDropDownMenu_AddButton({ notCheckable = true, text = CANCEL, keepShownOnClick = false })
+		EDDM.UIDropDownMenu_AddButton({ notCheckable = true, text = CLOSE, keepShownOnClick = false })
 	end
 
 	-- Main button frame and addon base

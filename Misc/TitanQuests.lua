@@ -12,7 +12,7 @@ local version = GetAddOnMetadata(ADDON_NAME, "Version")
 local ID = "TITAN_QUESSM"
 local activeQuests = 0 -- Questas ativas
 local completedQuests = 0 -- Quests completas
-local maxNumQuests = C_QuestLog.GetMaxNumQuestsCanAccept() -- num máximo de quests
+local maxNumQuests = 0
 -----------------------------------------------
 local function OnClick(self, button)
 	if (button == "LeftButton") then
@@ -22,6 +22,10 @@ end
 -----------------------------------------------
 local function UpdateAll(self)
 	local numShownEntries, numQuests = C_QuestLog.GetNumQuestLogEntries();
+	local currentMaxNumQuests = C_QuestLog.GetMaxNumQuestsCanAccept()
+	if currentMaxNumQuests and currentMaxNumQuests > 0 then
+		maxNumQuests = currentMaxNumQuests
+	end
 
 	activeQuests = 0
 	completedQuests = 0
@@ -53,15 +57,16 @@ local eventsTable = {
 -----------------------------------------------
 local function GetButtonText(self, id)
 
-	local activedText
-	if activeQuests > 15 and activeQuests < 20 then
-		activedText = "|cFFf6ed12"..activeQuests
-	elseif activeQuests > 19 and activeQuests < 25 then
-		activedText = "|cFFf69112"..activeQuests
-	elseif activeQuests == 25 then
-		activedText = "|cFFFF2e2e"..activeQuests
-	else
-		activedText = TitanUtils_GetHighlightText(activeQuests)
+	local activedText = TitanUtils_GetHighlightText(activeQuests)
+	if maxNumQuests > 0 then
+		local questLimitRatio = activeQuests / maxNumQuests
+		if questLimitRatio >= 1 then
+			activedText = "|cFFFF2e2e"..activeQuests
+		elseif questLimitRatio >= 0.8 then
+			activedText = "|cFFf69112"..activeQuests
+		elseif questLimitRatio >= 0.6 then
+			activedText = "|cFFf6ed12"..activeQuests
+		end
 	end
 
 	return L["quests"]..": ", "|cFFFFFFFF[|r|cFF69FF69"..completedQuests.."|r|cFFFFFFFF]|r "..activedText.."|r|||cFFFF2e2e"..maxNumQuests
@@ -90,15 +95,13 @@ function PrepareMenu(eddm, self, id)
 	info.keepShownOnClick = true
 	eddm.UIDropDownMenu_AddButton(info);
 
-	eddm.UIDropDownMenu_AddSpace();
+	eddm.UIDropDownMenu_AddSeparator();
 
 	eddm.UIDropDownMenu_AddButton({
 		notCheckable = true,
 		text = ACE["TITAN_PANEL_MENU_HIDE"],
 		func = function() TitanPanelRightClickMenu_Hide(id) end
 	})
-
-	eddm.UIDropDownMenu_AddSeparator();
 
 	info = {};
 	info.text = CLOSE;

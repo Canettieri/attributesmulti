@@ -66,8 +66,8 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		local ok, base = pcall(UnitArmor, "player")
-		startattribute = ok and base or 0
+		local ok, _, _, armor = pcall(UnitArmor, "player")
+		startattribute = ok and armor or 0
 		amr = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)

@@ -1,4 +1,4 @@
-## Interface: 120007
+## Interface: 120100
 ## Title: Titan Panel [|cff336699Attributes|r] Multi! |cff00aa00@project-version@|r
 ## Notes: Track your attributes values! Right-click on Titan Panel, go to "Combat" tab and enjoy.
 ## Notes-ptBR: Rastreie o valor de seus atributos! Clique com o botão direito no Painel Titan, vá na aba "Combate" e aproveite.
@@ -6,6 +6,7 @@
 ## Version: @project-version@
 ## Dependencies: Titan
 ## SavedVariables: TitanAttributesMultiDb
+## SavedVariablesPerCharacter: TitanSpecializationsMultiDB
 ## X-Curse-Project-ID: 94732
 ## X-Wago-ID: Xb6XjOGp
 Core\languages\enUS-default.lua
@@ -40,6 +41,8 @@ Misc\TitanAchievement.lua
 Misc\TitanDeath.lua
 Misc\TitanHonor.lua
 Misc\TitanHonorableKills.lua
+Misc\TitanPvPInfo.lua
+Misc\TitanSpecializations.lua
 Misc\TitanILVL.lua
 Misc\TitanQuests.lua
 Misc\TitanXP.lua

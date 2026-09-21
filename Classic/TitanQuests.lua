@@ -21,13 +21,17 @@ end
 -----------------------------------------------
 local function UpdateAll(self)
 	local numEntries, numQuests = GetNumQuestLogEntries();
+	local currentMaximum = C_QuestLog and C_QuestLog.GetMaxNumQuestsCanAccept and C_QuestLog.GetMaxNumQuestsCanAccept()
+	if currentMaximum and currentMaximum > 0 then
+		maximum = currentMaximum
+	end
 
 	quests = numQuests
 	count = 0
 
 	for questIndex = 1, numEntries do
 	    local title, level, suggestedGroup, isHeader, isCollapsed, isComplete = GetQuestLogTitle(questIndex)
-	    if(isComplete) then count = count + 1 end
+	    if isComplete == 1 then count = count + 1 end
 	end
 
 	TitanPanelButton_UpdateButton(self.registry.id)
@@ -45,18 +49,19 @@ local eventsTable = {
 -----------------------------------------------
 local function GetButtonText(self, id)
 
-	local completedtext
-	if quests > 15 and quests < 20 then
-		completedtext = "|cFFf6ed12"..quests
-	elseif quests > 19 and quests < 25 then
-		completedtext = "|cFFf69112"..quests
-	elseif quests == 25 then
-		completedtext = "|cFFFF2e2e"..quests
-	else
-		completedtext = TitanUtils_GetHighlightText(quests)
+	local completedtext = TitanUtils_GetHighlightText(quests)
+	if maximum > 0 then
+		local questLimitRatio = quests / maximum
+		if questLimitRatio >= 1 then
+			completedtext = "|cFFFF2e2e"..quests
+		elseif questLimitRatio >= 0.8 then
+			completedtext = "|cFFf69112"..quests
+		elseif questLimitRatio >= 0.6 then
+			completedtext = "|cFFf6ed12"..quests
+		end
 	end
 
-	return L["quests"]..": ", "|cFFFFFFFF[|r|cFF69FF69"..count.."|r|cFFFFFFFF]|r "..completedtext.."|||cFFFF2e2e"..maximum
+	return L["quests"]..": ", "|cFFFFFFFF[|r|cFF69FF69"..count.."|r|cFFFFFFFF]|r "..completedtext.."|r|||cFFFF2e2e"..maximum
 end
 -----------------------------------------------
 local function GetTooltipText(self, id)

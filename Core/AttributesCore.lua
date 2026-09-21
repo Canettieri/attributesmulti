@@ -78,15 +78,13 @@ function L.PrepareAttributesMenu(eddm, self, id)
 	info.keepShownOnClick = true
 	eddm.UIDropDownMenu_AddButton(info)
 
-	eddm.UIDropDownMenu_AddSpace();
+	eddm.UIDropDownMenu_AddSeparator();
 
 	eddm.UIDropDownMenu_AddButton({
 		notCheckable = true,
 		text = ACE["TITAN_PANEL_MENU_HIDE"],
 		func = function() TitanPanelRightClickMenu_Hide(id) end
 	})
-
-	eddm.UIDropDownMenu_AddSeparator();
 
 	info = {};
 	info.text = CLOSE;

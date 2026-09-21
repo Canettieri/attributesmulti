@@ -10,8 +10,9 @@ local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetad
 local version = GetAddOnMetadata(ADDON_NAME, "Version")
 local ID = "TITAN_MARGM"
 local manaReg = 0
-local startattribute
+local startattribute = 0
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
+local expansionLevel = GetExpansionLevel()
 -----------------------------------------------
 local function OnClick(self, button)
 	if (button == "LeftButton") then
@@ -71,9 +72,9 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		local base = UnitStat("player", 3)
-		startattribute = type(base) == "number" and base or 0
-		STAM = startattribute
+		local ok, base = pcall(GetManaRegen)
+		startattribute = ok and base or 0
+		manaReg = startattribute
 
 		TitanPanelButton_UpdateButton(self.registry.id)
 	end
@@ -83,7 +84,7 @@ L.Elib({
 	id = ID,
 	name = "Titan|cFFf9251a "..L["manareg"].."|r".." Multi",
 	tooltip = L["manareg"],
-	icon = "Interface\\Icons\\spell_arcane_manatap.blp",
+	icon = (expansionLevel >= 9) and "Interface\\Icons\\spell_arcane_manatap.blp" or "Interface\\Icons\\spell_frost_manarecharge",
 	category = "Information",
 	version = version,
 	onClick = OnClick,
