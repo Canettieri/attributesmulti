@@ -99,13 +99,8 @@ function Elib.Register(easyObject)
 			return initMenu(self, level, menuList, id)
 		end
 
-		EDDM.UIDropDownMenu_AddButton({
-			text = TitanPlugins[id].menuText,
-			hasArrow = false,
-			isTitle = true,
-			isUninteractable = true,
-			notCheckable = true
-		})
+		EDDM.UIDropDownMenu_AddButton(L.CreateMenuTitle(TitanPlugins[id].menuText))
+		EDDM.UIDropDownMenu_AddButton(L.CreateMenuTitle(L["buttonText"]))
 
 		EDDM.UIDropDownMenu_AddButton(createTitanOption(id, Titan_L["TITAN_PANEL_MENU_SHOW_ICON"], "ShowIcon"))
 		EDDM.UIDropDownMenu_AddButton(createTitanOption(id, Titan_L["TITAN_PANEL_MENU_SHOW_LABEL_TEXT"], "ShowLabelText"))
@@ -140,7 +135,7 @@ function Elib.Register(easyObject)
 			end
 		end
 
-		EDDM.UIDropDownMenu_AddSeparator()
+		L.AddBarPositionMenu(EDDM, id)
 		EDDM.UIDropDownMenu_AddButton({
 			notCheckable = true,
 			text = Titan_L["TITAN_PANEL_MENU_HIDE"],

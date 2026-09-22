@@ -88,4 +88,8 @@ L["rangedpower"] = "Poder de Daño a Distancia"
 L["session"] = "Balance en sesión: "
 L["moreinfo"] = "|cFFB4EEB4Sugerencia:|r |cFFFFFFFFEl botón izquierdo del ratón\rabre más información sobre "
 L["showbb"] = "Mostrar Balance de sesión en barra"
+L["buttonText"] = "Texto de la barra"
+L["barPosition"] = "Posición en la barra"
+L["moveRight"] = "Mover a la derecha"
+L["moveLeft"] = "Mover a la izquierda"
 end

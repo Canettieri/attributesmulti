@@ -48,4 +48,8 @@ L["maxlvl"] = "Maximale Stufe!"
 L["session"] = "Sitzungsbalance: "
 L["moreinfo"] = "|cFFB4EEB4Hinweis|r |cFFFFFFFFLinksklick öffnet mehr\rInformationen über "
 L["showbb"] = "Sitzungsbalance in der Leiste anzeigen"
+L["buttonText"] = "Leistentext"
+L["barPosition"] = "Position auf der Leiste"
+L["moveRight"] = "Nach rechts verschieben"
+L["moveLeft"] = "Nach links verschieben"
 end

@@ -288,12 +288,7 @@ local function PrepareMenu(eddm, self, id, level, menuList)
         return
     end
 
-    eddm.UIDropDownMenu_AddButton({
-        text = TitanPlugins[id].menuText,
-        isTitle = true,
-        isUninteractable = true,
-        notCheckable = true,
-    })
+    eddm.UIDropDownMenu_AddButton(L.CreateMenuTitle(TitanPlugins[id].menuText))
 
     local currentIndex, currentID = GetCurrentSpec()
     local db = GetDB()
@@ -311,7 +306,8 @@ local function PrepareMenu(eddm, self, id, level, menuList)
             })
         end
     end
-    eddm.UIDropDownMenu_AddSeparator()
+    eddm.UIDropDownMenu_AddSpace()
+    eddm.UIDropDownMenu_AddButton(L.CreateMenuTitle(L["specOptions"]))
 
     local loadoutMenu = {}
     if currentID then
@@ -398,7 +394,8 @@ local function PrepareMenu(eddm, self, id, level, menuList)
     AddSubmenu(eddm, L["specLoot"], lootMenu)
     AddSubmenu(eddm, L["specBindLoot"], bindLootMenu, not currentID)
 
-    eddm.UIDropDownMenu_AddSeparator()
+    eddm.UIDropDownMenu_AddSpace()
+    eddm.UIDropDownMenu_AddButton(L.CreateMenuTitle(L["buttonText"]))
     eddm.UIDropDownMenu_AddButton({
         text = TITAN_L["TITAN_PANEL_MENU_SHOW_ICON"],
         checked = TitanGetVar(id, "ShowIcon"),
@@ -420,7 +417,7 @@ local function PrepareMenu(eddm, self, id, level, menuList)
             TitanPanel_InitPanelButtons()
         end,
     })
-    eddm.UIDropDownMenu_AddSeparator()
+    L.AddBarPositionMenu(eddm, id)
     eddm.UIDropDownMenu_AddButton({
         text = TITAN_L["TITAN_PANEL_MENU_HIDE"],
         notCheckable = true,

@@ -57,13 +57,8 @@ local function GetTooltipText(self, id)
 end
 -----------------------------------------------
 function PrepareMenu(eddm, self, id)
-	eddm.UIDropDownMenu_AddButton({
-		text = TitanPlugins[id].menuText,
-		hasArrow = false,
-		isTitle = true,
-		isUninteractable = true,
-		notCheckable = true
-	})
+	eddm.UIDropDownMenu_AddButton(L.CreateMenuTitle(TitanPlugins[id].menuText))
+	eddm.UIDropDownMenu_AddButton(L.CreateMenuTitle(L["buttonText"]))
 
 	local info = {};
 	info.text = L["simpleText"];
@@ -79,7 +74,7 @@ function PrepareMenu(eddm, self, id)
 	info.keepShownOnClick = true
 	eddm.UIDropDownMenu_AddButton(info);
 
-	eddm.UIDropDownMenu_AddSeparator();
+	L.AddBarPositionMenu(eddm, id)
 
 	eddm.UIDropDownMenu_AddButton({
 		notCheckable = true,

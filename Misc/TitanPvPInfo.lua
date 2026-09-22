@@ -115,6 +115,7 @@ local function PrepareMenu(eddm, self, id)
         isUninteractable = true,
         notCheckable = true,
     })
+    eddm.UIDropDownMenu_AddButton(L.CreateMenuTitle(L["buttonText"]))
 
     eddm.UIDropDownMenu_AddButton({
         text = TITAN_L["TITAN_PANEL_MENU_SHOW_ICON"],
@@ -138,7 +139,7 @@ local function PrepareMenu(eddm, self, id)
         end,
     })
 
-    eddm.UIDropDownMenu_AddSeparator()
+    L.AddBarPositionMenu(eddm, id)
     eddm.UIDropDownMenu_AddButton({
         text = TITAN_L["TITAN_PANEL_MENU_HIDE"],
         notCheckable = true,

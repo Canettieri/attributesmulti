@@ -1,12 +1,28 @@
 # Changelog
 
-## Added
+All notable changes to this project will be documented in this file.
+
+## [Unreleased]
+
+### Added
+
+- Added `README.md` with installation, usage, and project information.
+- Added **Move Right** and **Move Left** actions to plugin menus for changing their position on the Titan bar.
+
+### Changed
+
+- Reorganized plugin menus into **Bar Text** and **Bar Position** sections, with visual spacing between the sections.
+- Reorganized the Specializations menu: specialization choices are followed by an **Options** section for loadouts, equipment, and loot settings, using visual spacing instead of separators.
+
+## [8.0.0] - 2026-09-21
+
+### Added
 
 - Added a Specializations module that displays the current specialization, talent loadout, loot specialization, and equipment set.
 - Added a PvP Information module for Honor and PvP-related details.
 - Added right-click menu options to manage talent loadouts, loot specialization, and equipment sets.
 
-## Changed
+### Changed
 
 - Standardized plugin menus with a consistent layout: content, separator, Hide, and Close.
 - Improved the visual styling and update behavior of the Specializations module.
@@ -14,7 +30,7 @@
 - Kept the compact quest counter format as `active|max`.
 - Updated the Classic quest counter to use dynamic limits and the same color thresholds where supported.
 
-## Fixed
+### Fixed
 
 - Corrected session balance baselines for Avoidance, Leech, and Speed.
 - Corrected the Armor session balance baseline by using the current armor value on login.
@@ -24,10 +40,13 @@
 - Updated talent window access to use the compatible Retail API.
 - Added expansion-aware Mana Regeneration icons so the shared module uses icons available in both Retail and Classic.
 
-## Removed and Consolidated
+### Removed
 
 - Removed the duplicate Mana Regeneration load in Classic Era.
 - Removed `Classic/TitanManaRegen-ClassicEra.lua` and use the shared Mana Regeneration module instead.
 - Removed the duplicate Classic Critical Strike and Stamina modules.
 - Updated Classic Era and Mists to use the shared Critical Strike and Stamina modules.
 - Kept Quest, Hit Chance, Spirit, and Mastery modules separate where their game API requirements differ.
+
+[unreleased]: https://github.com/Canettieri/attributesmulti/compare/v8.0.0...HEAD
+[8.0.0]: https://github.com/Canettieri/attributesmulti/releases/tag/v8.0.0

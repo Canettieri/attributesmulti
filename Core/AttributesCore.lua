@@ -43,14 +43,41 @@ local function ToggleShowBarBalance(self, id) -- Show Balance in Titan Bar
 	TitanPanelButton_UpdateButton(id)
 end
 
-function L.PrepareAttributesMenu(eddm, self, id)
-	eddm.UIDropDownMenu_AddButton({
-		text = TitanPlugins[id].menuText,
+function L.CreateMenuTitle(text)
+	return {
+		text = text,
 		hasArrow = false,
+		notClickable = true,
 		isTitle = true,
 		isUninteractable = true,
-		notCheckable = true
+		notCheckable = true,
+	}
+end
+
+function L.AddBarPositionMenu(eddm, id)
+	eddm.UIDropDownMenu_AddSpace()
+	eddm.UIDropDownMenu_AddButton(L.CreateMenuTitle(L["barPosition"]))
+
+	eddm.UIDropDownMenu_AddButton({
+		text = L["moveRight"],
+		func = function() TitanUtils_ShiftButtonOnBarRight(id) end,
+		keepShownOnClick = true,
+		notCheckable = true,
 	})
+
+	eddm.UIDropDownMenu_AddButton({
+		text = L["moveLeft"],
+		func = function() TitanUtils_ShiftButtonOnBarLeft(id) end,
+		keepShownOnClick = true,
+		notCheckable = true,
+	})
+
+	eddm.UIDropDownMenu_AddSeparator()
+end
+
+function L.PrepareAttributesMenu(eddm, self, id)
+	eddm.UIDropDownMenu_AddButton(L.CreateMenuTitle(TitanPlugins[id].menuText))
+	eddm.UIDropDownMenu_AddButton(L.CreateMenuTitle(L["buttonText"]))
 
 	info = {};
 	info.text = L["showbb"];
@@ -78,7 +105,7 @@ function L.PrepareAttributesMenu(eddm, self, id)
 	info.keepShownOnClick = true
 	eddm.UIDropDownMenu_AddButton(info)
 
-	eddm.UIDropDownMenu_AddSeparator();
+	L.AddBarPositionMenu(eddm, id)
 
 	eddm.UIDropDownMenu_AddButton({
 		notCheckable = true,

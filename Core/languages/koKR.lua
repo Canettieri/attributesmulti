@@ -40,4 +40,8 @@ L["versatility"] = "유연성"
 L["session"] = "손익 계산: "
 L["moreinfo"] = "|cFFB4EEB4도움말:|r |cFFFFFFFF마우스 클릭으로 의 캐릭터 창을 엽니다. " -- In this case, player name is always the last word. I change it and I think it's wrong now. (sorry)
 L["showbb"] = "바에 수입과 지출을 표시합니다."
+L["buttonText"] = "바 텍스트"
+L["barPosition"] = "바 위치"
+L["moveRight"] = "오른쪽으로 이동"
+L["moveLeft"] = "왼쪽으로 이동"
 end

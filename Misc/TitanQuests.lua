@@ -78,24 +78,22 @@ local function GetTooltipText(self, id)
 end
 -----------------------------------------------
 function PrepareMenu(eddm, self, id)
-	eddm.UIDropDownMenu_AddButton({
-		text = TitanPlugins[id].menuText,
-		hasArrow = false,
-		isTitle = true,
-		isUninteractable = true,
-		notCheckable = true
-	})
+	eddm.UIDropDownMenu_AddButton(L.CreateMenuTitle(TitanPlugins[id].menuText))
+	eddm.UIDropDownMenu_AddButton(L.CreateMenuTitle(L["buttonText"]))
 
 	local info = {};
 	info = {};
 	info.text = ACE["TITAN_CLOCK_MENU_DISPLAY_ON_RIGHT_SIDE"];
-	info.func = ToggleRightSideDisplay;
+	info.func = function()
+		TitanToggleVar(id, "DisplayOnRightSide")
+		TitanPanel_InitPanelButtons()
+	end
 	info.arg1 = id
 	info.checked = TitanGetVar(id, "DisplayOnRightSide");
 	info.keepShownOnClick = true
 	eddm.UIDropDownMenu_AddButton(info);
 
-	eddm.UIDropDownMenu_AddSeparator();
+	L.AddBarPositionMenu(eddm, id)
 
 	eddm.UIDropDownMenu_AddButton({
 		notCheckable = true,
