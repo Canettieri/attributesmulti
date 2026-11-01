@@ -10,7 +10,7 @@ local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetad
 local version = GetAddOnMetadata(ADDON_NAME, "Version")
 local ID = "TITAN_HTCHM"
 local hitChance = 0
-local startattribute = 0
+local startattribute
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 -----------------------------------------------
 local function OnClick(self, button)
@@ -20,11 +20,12 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local HitRating  = GetCombatRatingBonus(CR_HIT_MELEE)
-	if HitRating == nil then
-		HitRating = 0
-	end
-	local hitModifier = HitRating + GetHitModifier();
+	local ok, hitModifier = pcall(function()
+		-- Same melee hit calculation as the Classic and Camelot character sheets.
+		return (GetCombatRatingBonus(CR_HIT_MELEE or 6) or 0) + (GetHitModifier() or 0)
+	end)
+	if not ok or type(hitModifier) ~= "number" or (issecretvalue and issecretvalue(hitModifier)) then return true end
+	if startattribute == nil then startattribute = hitModifier end
 
 	if hitChance == hitModifier then return end
 	hitChance = hitModifier
@@ -36,9 +37,9 @@ end
 local function GetButtonText(self, id)
 	local BarBalanceText = ""
 	if TitanGetVar(ID, "ShowBarBalance") then
-		if (hitChance - startattribute) > 0 then
+		if (hitChance - (startattribute or hitChance)) > 0 then
 			BarBalanceText = " |cFF69FF69["..(string.format("%.2f", (hitChance - startattribute))).."%".."]"
-		elseif (hitChance - startattribute) < 0 then
+		elseif (hitChance - (startattribute or hitChance)) < 0 then
 			BarBalanceText = " |cFFFF2e2e["..(hitChance - startattribute).."]"
 		end
 	end
@@ -51,7 +52,7 @@ end
 local function GetTooltipText(self, id)
 	local text = TitanUtils_GetHighlightText("0")
 
-	local dif = hitChance - startattribute
+	local dif = hitChance - (startattribute or hitChance)
 	if dif > 0 then
 		text = "|cFF69FF69"..(string.format("%.2f", (hitChance - startattribute))).."%"
 	elseif dif < 0 then
@@ -66,8 +67,7 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = UnitStat("player", 1) or 0
-		hitChance = startattribute
+		OnUpdate(self, self.registry.id)
 
 		TitanPanelButton_UpdateButton(self.registry.id)
 	end

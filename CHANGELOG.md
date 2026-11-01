@@ -2,17 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [9.0.0] - 2026-11-01
 
 ### Added
 
+- Added a dedicated Forever (Camelot, interface 16001) manifest with 19 plugins, including Spirit, Hit Chance, modern quests, and level-60 experience tracking.
+- Added a separate Forever Specializations module for primary/secondary talent profiles, per-tree point distribution, unlocked-profile switching, and equipment bindings saved independently of Retail.
+- Added translations for the Forever talent-profile controls in all six supported languages.
 - Added `README.md` with installation, usage, and project information.
 - Added **Move Right** and **Move Left** actions to plugin menus for changing their position on the Titan bar.
 
 ### Changed
 
+- Updated the Retail interface version to 120105 for WoW 12.1.5.
+- Kept Forever XP and primary-stat icons independent of Retail expansion constants.
 - Reorganized plugin menus into **Bar Text** and **Bar Position** sections, with visual spacing between the sections.
 - Reorganized the Specializations menu: specialization choices are followed by an **Options** section for loadouts, equipment, and loot settings, using visual spacing instead of separators.
+
+### Fixed
+
+- Initialized Spirit and Hit Chance session balances from their own values instead of Strength, and skipped unavailable or secret readings.
+- Prevented division by zero when the client reports no XP requirement at level cap.
+- Kept primary-stat and XP icon variables local to their modules.
 
 ## [8.0.0] - 2026-09-21
 
@@ -48,5 +59,5 @@ All notable changes to this project will be documented in this file.
 - Updated Classic Era and Mists to use the shared Critical Strike and Stamina modules.
 - Kept Quest, Hit Chance, Spirit, and Mastery modules separate where their game API requirements differ.
 
-[unreleased]: https://github.com/Canettieri/attributesmulti/compare/v8.0.0...HEAD
+[9.0.0]: https://github.com/Canettieri/attributesmulti/releases/tag/v9.0.0
 [8.0.0]: https://github.com/Canettieri/attributesmulti/releases/tag/v8.0.0

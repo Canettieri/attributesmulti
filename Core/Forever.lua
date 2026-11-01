@@ -1,0 +1,3 @@
+-- Loaded only by the Camelot manifest. API family and content expansion differ.
+local _, L = ...
+L.IsForever = true

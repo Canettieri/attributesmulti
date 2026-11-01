@@ -2,6 +2,7 @@ package-as: TitanAttributesMulti
 
 ignore:
     - .gitignore
+    - tests
     
 manual-changelog:
     filename: CHANGELOG.md

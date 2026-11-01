@@ -18,9 +18,10 @@ local EXXP
 local CHARCOLOR = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr.."|r"
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 local EXPLVL -- Nível máximo por expansão
+local ICON
 
 if UnitFactionGroup("Player") == "Alliance" then
-	if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
+	if L.IsForever or LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
 		ICON = "236448"  -- Classic Era Alliance
 	elseif LE_EXPANSION_LEVEL_CURRENT == LE_EXPANSION_BURNING_CRUSADE then
 		ICON = "132486"  -- TBC Alliance
@@ -30,7 +31,7 @@ if UnitFactionGroup("Player") == "Alliance" then
 		ICON = "1498974" -- Retail Alliance
 	end
 else
-	if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
+	if L.IsForever or LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
 		ICON = "236452"  -- Classic Era Horde
 	elseif LE_EXPANSION_LEVEL_CURRENT == LE_EXPANSION_BURNING_CRUSADE then
 		ICON = "132485"  -- TBC Horde
@@ -41,7 +42,7 @@ else
 	end
 end
 
-if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
+if L.IsForever or LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
 	EXPLVL = 60  -- Vanilla Classic
 elseif LE_EXPANSION_LEVEL_CURRENT == LE_EXPANSION_BURNING_CRUSADE then
 	EXPLVL = 70  -- The Burning Crusade
@@ -61,7 +62,7 @@ local function UpdateAll(self)
 
 	--local restState = GetRestState();
 	local pXP, pMaxXP = UnitXP("player"), UnitXPMax("player"); -- Quantidade atual e quantidade máxima do nível atual
-	local rPos = (pXP / pMaxXP) * 100; -- Porcentagem do nível atual
+	local rPos = pMaxXP > 0 and (pXP / pMaxXP) * 100 or 0; -- No XP bar at level cap
 	local level = UnitLevel("player") -- Nível do personagem
 	local exhaustionXP = GetXPExhaustion() -- Rest XP
 
@@ -84,7 +85,7 @@ local eventsTable = {
 -----------------------------------------------
 local function GetButtonText(self, id)
 
-	if LVL < EXPLVL then
+	if LVL < EXPLVL and MXP > 0 then
 		local toUp = MXP - AXP
 		local restperc = (EXXP / ((MXP / 100) * 1.5))
 
@@ -108,7 +109,7 @@ local function GetButtonText(self, id)
 end
 -----------------------------------------------
 local function GetTooltipText(self, id)
-	if LVL < EXPLVL then
+	if LVL < EXPLVL and MXP > 0 then
 		local toUp = MXP - AXP
 		local restperc = (EXXP / ((MXP / 100) * 1.5))
 

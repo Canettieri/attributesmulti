@@ -27,8 +27,11 @@ Titan Panel is required.
 | Mists of Pandaria Classic | 20 | Combat stats, Hit Chance, Mastery, Spirit, quests, achievements, and experience |
 | The Burning Crusade Classic | 18 | Combat stats, Hit Chance, Spirit, quests, and experience |
 | Classic Era | 15 | Combat stats, Spirit, quests, and experience |
+| WoW: Forever / Camelot | 19 | Classic combat stats, Hit Chance, Haste, Ranged Power, Spirit, modern quests, experience, and talent profiles |
 
 Each game client loads only the plugins listed in its corresponding `.toc` file.
+
+Forever uses `TitanAttributesMulti_Camelot.toc` (interface 16001) with shared stat modules and the modern quest API. Its XP plugin uses the level-60 cap independently of the client's expansion constants. Install a Forever-compatible Titan Panel. Forever loads its own Specializations module; the Retail module and PvP Results are not loaded. In-game validation on Forever is still pending.
 
 ## Attribute plugins
 
@@ -53,6 +56,14 @@ Retail also includes plugins for Achievement Points, player deaths, Honor, Honor
 The **Specializations** plugin shows your active specialization, talent loadout, equipped set, and loot specialization. Left-click it to open the Talents window.
 
 Right-click the plugin to switch specializations, choose a saved talent loadout, use an equipment set, or change your loot specialization. You can also bind an equipment set and loot specialization to each specialization; the addon applies those bindings when you switch specializations. Changes that cannot be made in combat are applied after combat ends when possible.
+
+## Talent profiles (Forever)
+
+Forever has a separate **Specializations** module in `Forever/TitanSpecializations.lua`. It shows the active primary or secondary talent profile, with an optional compact distribution such as `31/15/5`. The tooltip names each talent tree and shows its spent points for each unlocked profile.
+
+Left-click opens the Talents window. Right-click switches between unlocked talent profiles, equips a saved equipment set, or links a set to the current profile. Linked equipment is applied after the client confirms a profile change; equipment changes caused by an external profile change during combat wait until combat ends. The plugin does not equip a linked set merely because you log in. Changing a binding saves the association; **Equip set now** equips it immediately.
+
+The module follows Forever's dual-spec model, so it does not show Retail loadout or loot-specialization menus. Profile bindings use their own per-character saved variable, separate from Retail settings.
 
 ## How to use
 

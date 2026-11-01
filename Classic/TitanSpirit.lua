@@ -10,7 +10,7 @@ local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetad
 local version = GetAddOnMetadata(ADDON_NAME, "Version")
 local ID = "TITAN_SPRTM"
 local sprt = 0
-local startattribute = 0
+local startattribute
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 -----------------------------------------------
 local function OnClick(self, button)
@@ -20,7 +20,9 @@ local function OnClick(self, button)
 end
 -----------------------------------------------
 local function OnUpdate(self, id)
-	local base, stat, posBuff, negBuff = UnitStat("player", 5) or 0;
+	local ok, base = pcall(UnitStat, "player", 5)
+	if not ok or type(base) ~= "number" or (issecretvalue and issecretvalue(base)) then return true end
+	if startattribute == nil then startattribute = base end
 
 	if sprt == base then return end
 	sprt = base
@@ -32,9 +34,9 @@ end
 local function GetButtonText(self, id)
 	local BarBalanceText = ""
 	if TitanGetVar(ID, "ShowBarBalance") then
-		if (sprt - startattribute) > 0 then
+		if (sprt - (startattribute or sprt)) > 0 then
 			BarBalanceText = " |cFF69FF69["..(sprt - startattribute).."]"
-		elseif (sprt - startattribute) < 0 then
+		elseif (sprt - (startattribute or sprt)) < 0 then
 			BarBalanceText = " |cFFFF2e2e["..(sprt - startattribute).."]"
 		end
 	end
@@ -47,7 +49,7 @@ end
 local function GetTooltipText(self, id)
 	local text = TitanUtils_GetHighlightText("0")
 
-	local dif = sprt - startattribute
+	local dif = sprt - (startattribute or sprt)
 	if dif > 0 then
 		text = "|cFF69FF69"..(sprt - startattribute)
 	elseif dif < 0 then
@@ -62,8 +64,7 @@ local eventsTable = {
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self.PLAYER_ENTERING_WORLD = nil
 
-		startattribute = UnitStat("player", 1) or 0
-		sprt = startattribute
+		OnUpdate(self, self.registry.id)
 
 		TitanPanelButton_UpdateButton(self.registry.id)
 	end

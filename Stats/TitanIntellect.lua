@@ -13,7 +13,8 @@ local int = 0
 local startattribute = 0
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 
-if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
+local ICON
+if L.IsForever or LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_CLASSIC then
 	ICON = "Interface\\Icons\\spell_holy_arcaneintellect"
 else
 	ICON = "Interface\\Icons\\spell_arcane_mindmastery"
