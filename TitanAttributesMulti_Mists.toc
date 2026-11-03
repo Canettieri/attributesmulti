@@ -22,6 +22,7 @@ Classic\TitanQuests.lua
 Classic\TitanSpirit.lua
 Misc\TitanXP.lua
 Misc\TitanAchievement.lua
+Misc\TitanILVL.lua
 Stats\TitanAgility.lua
 Stats\TitanArmor.lua
 Stats\TitanBlock.lua

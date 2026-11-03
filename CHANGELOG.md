@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [9.1.0] - 2026-11-02
+
+### Added
+
+- Added the Item Level plugin to Mists of Pandaria Classic.
+
 ## [9.0.0] - 2026-11-01
 
 ### Added
