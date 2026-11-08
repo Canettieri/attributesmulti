@@ -37,6 +37,11 @@ TitanGetVar = function(id, key) return states[id][key] end
 TitanPanelButton_UpdateButton = function() end
 TitanUtils_GetHighlightText = tostring
 ToggleCharacter = function() end
+-- Secure click setup waits for the real UI to exist; this suite tests stats.
+InCombatLockdown = function() return true end
+CreateFrame = function()
+	return { SetScript = function() end, RegisterEvent = function() end }
+end
 ToggleFrame = function() end
 WorldMapFrame = {}
 local rows = {

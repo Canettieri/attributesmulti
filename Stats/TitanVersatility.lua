@@ -13,12 +13,6 @@ local VD, VT = 0, 0
 local startattributeDone, startattributeTaken = 0, 0
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 -----------------------------------------------
-local function OnClick(self, button)
-	if (button == "LeftButton") then
-		ToggleCharacter("PaperDollFrame");
-	end
-end
------------------------------------------------
 local function OnUpdate(self, id)
 	local versaDone = GetCombatRatingBonus(29)
 	local versaTaken = GetCombatRatingBonus(31)
@@ -92,7 +86,7 @@ L.Elib({
 	icon = "Interface\\Icons\\spell_deathknight_subversion.blp",
 	category = "Information",
 	version = version,
-	onClick = OnClick,
+	characterClick = true,
 	onUpdate = OnUpdate,
 	getButtonText = GetButtonText,
 	getTooltipText = GetTooltipText,

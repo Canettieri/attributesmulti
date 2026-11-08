@@ -13,12 +13,6 @@ local amr = 0
 local startattribute = 0
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 -----------------------------------------------
-local function OnClick(self, button)
-	if (button == "LeftButton") then
-		ToggleCharacter("PaperDollFrame");
-	end
-end
------------------------------------------------
 local function OnUpdate(self, id)
 	-- Taint protection: wrap arithmetic and comparison in pcall to catch secret number errors
 	local ok, unchanged = pcall(function()
@@ -81,7 +75,7 @@ L.Elib({
 	icon = "Interface\\Icons\\inv_chest_plate05",
 	category = "Information",
 	version = version,
-	onClick = OnClick,
+	characterClick = true,
 	onUpdate = OnUpdate,
 	getButtonText = GetButtonText,
 	getTooltipText = GetTooltipText,

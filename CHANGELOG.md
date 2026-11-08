@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [9.2.0] - 2026-11-08
+
+### Fixed
+
+- Open the character window through a secure Blizzard button click on clients with secret values, avoiding character-window status bar errors in Forever (Camelot).
+- Keep secure click buttons independent of Titan's layout to avoid blocked scale updates during combat.
+- Synchronize click button visibility, position, size, and scale after Titan initializes or moves plugins, while preserving character-window access during combat where allowed by the game.
+
 ## [9.1.0] - 2026-11-02
 
 ### Added

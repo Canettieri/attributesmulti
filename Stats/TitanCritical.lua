@@ -14,12 +14,6 @@ local startattribute
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 local expansionLevel = GetExpansionLevel()
 -----------------------------------------------
-local function OnClick(self, button)
-	if (button == "LeftButton") then
-		ToggleCharacter("PaperDollFrame");
-	end
-end
------------------------------------------------
 local function GetCrit()
 	-- from Blizzards PaperDollFrame.lua
 	local rating;
@@ -112,7 +106,7 @@ L.Elib({
 	icon = (expansionLevel >= 9) and "Interface\\Icons\\ability_rogue_combatexpertise.blp" or "Interface\\Icons\\ability_eyeoftheowl",
 	category = "Information",
 	version = version,
-	onClick = OnClick,
+	characterClick = true,
 	onUpdate = OnUpdate,
 	getButtonText = GetButtonText,
 	getTooltipText = GetTooltipText,

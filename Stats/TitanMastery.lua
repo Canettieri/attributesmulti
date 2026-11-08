@@ -13,12 +13,6 @@ local MY = 0
 local startattribute
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 -----------------------------------------------
-local function OnClick(self, button)
-	if (button == "LeftButton") then
-		ToggleCharacter("PaperDollFrame");
-	end
-end
------------------------------------------------
 local function OnUpdate(self, id)
 	local mastery = GetMasteryEffect()
 
@@ -81,7 +75,7 @@ L.Elib({
 	icon = "Interface\\Icons\\ability_creature_cursed_05.blp",
 	category = "Information",
 	version = version,
-	onClick = OnClick,
+	characterClick = true,
 	onUpdate = OnUpdate,
 	getButtonText = GetButtonText,
 	getTooltipText = GetTooltipText,

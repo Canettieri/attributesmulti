@@ -12,12 +12,6 @@ local AV = 0
 local startattribute
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 -----------------------------------------------
-local function OnClick(self, button)
-	if (button == "LeftButton") then
-		ToggleCharacter("PaperDollFrame");
-	end
-end
------------------------------------------------
 local function OnUpdate(self, id)
 	local avoidance = GetAvoidance and GetAvoidance()
 
@@ -80,7 +74,7 @@ L.Elib({
 	icon = "Interface\\Icons\\rogue_burstofspeed",
 	category = "Information",
 	version = version,
-	onClick = OnClick,
+	characterClick = true,
 	onUpdate = OnUpdate,
 	getButtonText = GetButtonText,
 	getTooltipText = GetTooltipText,

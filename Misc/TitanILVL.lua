@@ -16,12 +16,6 @@ local PLAYER_KEY
 local PLAYER_FACTION
 local PLAYER_CLASS_COLOR
 -----------------------------------------------
-local function OnClick(self, button)
-	if (button == "LeftButton") then
-		ToggleCharacter("PaperDollFrame");
-	end
-end
------------------------------------------------
 local function GetCharTable()
 	TitanAttributesMultiDb = TitanAttributesMultiDb or {}
 	TitanAttributesMultiDb[ID] = TitanAttributesMultiDb[ID] or { charTable = {} }
@@ -129,7 +123,7 @@ L.Elib({
 	icon = "Interface\\Icons\\INV_Helmet_02.blp",
 	category = "Information",
 	version = version,
-	onClick = OnClick,
+	characterClick = true,
 	getButtonText = GetButtonText,
 	getTooltipText = GetTooltipText,
 	eventsTable = eventsTable,

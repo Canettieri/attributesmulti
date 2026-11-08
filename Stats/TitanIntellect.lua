@@ -20,12 +20,6 @@ else
 	ICON = "Interface\\Icons\\spell_arcane_mindmastery"
 end
 -----------------------------------------------
-local function OnClick(self, button)
-	if (button == "LeftButton") then
-		ToggleCharacter("PaperDollFrame");
-	end
-end
------------------------------------------------
 local function OnUpdate(self, id)
 	local base = UnitStat("player", 4)
 
@@ -88,7 +82,7 @@ L.Elib({
 	icon = ICON,
 	category = "Information",
 	version = version,
-	onClick = OnClick,
+	characterClick = true,
 	onUpdate = OnUpdate,
 	getButtonText = GetButtonText,
 	getTooltipText = GetTooltipText,

@@ -13,12 +13,6 @@ local sprt = 0
 local startattribute
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 -----------------------------------------------
-local function OnClick(self, button)
-	if (button == "LeftButton") then
-		ToggleCharacter("PaperDollFrame");
-	end
-end
------------------------------------------------
 local function OnUpdate(self, id)
 	local ok, base = pcall(UnitStat, "player", 5)
 	if not ok or type(base) ~= "number" or (issecretvalue and issecretvalue(base)) then return true end
@@ -77,7 +71,7 @@ L.Elib({
 	icon = "Interface\\Icons\\inv_enchant_essencemagiclarge",
 	category = "Information",
 	version = version,
-	onClick = OnClick,
+	characterClick = true,
 	onUpdate = OnUpdate,
 	getButtonText = GetButtonText,
 	getTooltipText = GetTooltipText,

@@ -52,12 +52,6 @@ else
 	EXPLVL = 90  -- Retail
 end
 -----------------------------------------------
-local function OnClick(self, button)
-	if (button == "LeftButton") then
-		ToggleCharacter("PaperDollFrame");
-	end
-end
------------------------------------------------
 local function UpdateAll(self)
 
 	--local restState = GetRestState();
@@ -181,7 +175,7 @@ L.Elib({
 	icon = ICON,
 	category = "Information",
 	version = version,
-	onClick = OnClick,
+	characterClick = true,
 	getButtonText = GetButtonText,
 	getTooltipText = GetTooltipText,
 	eventsTable = eventsTable,

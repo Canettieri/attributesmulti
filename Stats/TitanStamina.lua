@@ -14,12 +14,6 @@ local startattribute = 0
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 local expansionLevel = GetExpansionLevel()
 -----------------------------------------------
-local function OnClick(self, button)
-	if (button == "LeftButton") then
-		ToggleCharacter("PaperDollFrame");
-	end
-end
------------------------------------------------
 local function OnUpdate(self, id)
 	local base = UnitStat("player", 3)
 
@@ -82,7 +76,7 @@ L.Elib({
 	icon = (expansionLevel >= 9) and "Interface\\Icons\\petbattle_health" or "Interface\\Icons\\spell_shadow_bloodboil",
 	category = "Information",
 	version = version,
-	onClick = OnClick,
+	characterClick = true,
 	onUpdate = OnUpdate,
 	getButtonText = GetButtonText,
 	getTooltipText = GetTooltipText,

@@ -14,12 +14,6 @@ local startattribute = 0
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 local expansionLevel = GetExpansionLevel()
 -----------------------------------------------
-local function OnClick(self, button)
-	if (button == "LeftButton") then
-		ToggleCharacter("PaperDollFrame");
-	end
-end
------------------------------------------------
 local function OnUpdate(self, id)
 	local base = GetManaRegen()
 
@@ -87,7 +81,7 @@ L.Elib({
 	icon = (expansionLevel >= 9) and "Interface\\Icons\\spell_arcane_manatap.blp" or "Interface\\Icons\\spell_frost_manarecharge",
 	category = "Information",
 	version = version,
-	onClick = OnClick,
+	characterClick = true,
 	onUpdate = OnUpdate,
 	getButtonText = GetButtonText,
 	getTooltipText = GetTooltipText,

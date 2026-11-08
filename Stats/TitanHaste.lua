@@ -14,12 +14,6 @@ local startattribute
 local charname = "|c" .. RAID_CLASS_COLORS[select(2, UnitClass("player"))].colorStr .. UnitName("player").."|r"
 local expansionLevel = GetExpansionLevel()
 -----------------------------------------------
-local function OnClick(self, button)
-	if (button == "LeftButton") then
-		ToggleCharacter("PaperDollFrame");
-	end
-end
------------------------------------------------
 local function OnUpdate(self, id)
 	local haste = GetHaste()
 
@@ -82,7 +76,7 @@ L.Elib({
 	icon = (expansionLevel >= 9) and "Interface\\Icons\\spell_holy_borrowedtime.blp" or "Interface\\Icons\\spell_nature_timestop",
 	category = "Information",
 	version = version,
-	onClick = OnClick,
+	characterClick = true,
 	onUpdate = OnUpdate,
 	getButtonText = GetButtonText,
 	getTooltipText = GetTooltipText,
