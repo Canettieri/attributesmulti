@@ -4,6 +4,23 @@
 
 local _, L = ...;
 if GetLocale() == "ptBR" then
+L.manaRegenCasting = "Durante conjuração"
+L.manaRegenUnit = "M/s"
+L.resistances = "Resistências Mágicas"
+L.defense = "Defesa"
+L.defenseMaximum = "Limite base para seu nível"
+L.weaponSkills = "Habilidade com Armas"
+L.weaponSkillSelect = "Habilidade na barra"
+L.weaponSkillAutomatic = "Automático (mão principal)"
+L.attributeBase = "Base"
+L.attributeBonus = "Bônus"
+L.healthRegen = "Regeneração de Vida"
+L.healthRegenNormal = "Fora de combate"
+L.healthRegenCombat = "Em combate"
+L.healthRegenCombatText = "Combate"
+L.healthRegenUnit = "PV/s"
+L.healthRegenInfo = "Regeneração passiva informada pelo jogo; não inclui feitiços de cura ou roubo de vida."
+L.healthRegenUnavailable = "— = indisponível ou protegido pelo jogo."
 -- Achievements
 L["achieve"] = "Conquistas"
 L["achievepts"] = "Pontos de Conquista"

@@ -26,6 +26,13 @@ GetRangedCritChance = GetBlockChance
 GetCritChance = GetBlockChance
 GetSpellBonusDamage = function() return 30 end
 GetManaRegen = function() return 10, 5 end
+GetHealthRegen = function() return 12.5, 0 end
+UnitAffectingCombat = function() return false end
+UnitResistance = function() return 10, 10, 15, 5 end
+UnitDefenseSkill = function() return 295, 5 end
+C_SkillInfo = { GetSkillLineInfoByID = function(id)
+	if id == 43 then return { name = "Swords", rank = 280, maxRank = 300, modifier = 5, tempPoints = 0 } end
+end }
 UnitXP = function() return xp end
 UnitXPMax = function() return maxXP end
 UnitLevel = function() return level end
@@ -82,7 +89,7 @@ for id, config in pairs(configs) do
 	assert(type(select(2, config.getButtonText(frames[id], id))) == "string", id)
 	assert(type(config.getTooltipText(frames[id], id)) == "string", id)
 end
-assert(count == 19 and L.IsForever)
+assert(count == 23 and L.IsForever)
 assert(not configs.TITAN_MASTM) -- No Retail mastery plugin.
 local function text(id) return select(2, configs[id].getButtonText(frames[id], id)) end
 local function update(id) configs[id].onUpdate(frames[id], id) end
@@ -108,7 +115,7 @@ assert(text(experience):find(L.maxlvl, 1, true))
 assert(configs[experience].getTooltipText() == L.maxttp)
 assert(configs[quests].getTooltipText():find(L.compquest .. "\t|cFFFFFFFF1", 1, true))
 assert(configs[quests].getTooltipText():find(L.numquests .. "\t|cFFFFFFFF3", 1, true))
-print("PASS: 19 Forever plugins, modern quests, stat sessions, inaccessible stats, level 60 without division by zero")
+print("PASS: 23 Forever plugins, modern quests, stat sessions, inaccessible stats, level 60 without division by zero")
 
 -- Verify shared XP and icon changes stay isolated from existing clients.
 for _, scenario in ipairs({ {0,60}, {1,70}, {4,90}, {11,90} }) do

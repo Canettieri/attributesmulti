@@ -7,6 +7,23 @@
 
 local _, L = ...;
 if GetLocale() == "ruRU" then
+L.manaRegenCasting = "Во время произнесения заклинаний"
+L.manaRegenUnit = "маны/с"
+L.resistances = "Сопротивление магии"
+L.defense = "Защита"
+L.defenseMaximum = "Базовый предел для вашего уровня"
+L.weaponSkills = "Оружейные навыки"
+L.weaponSkillSelect = "Навык на панели"
+L.weaponSkillAutomatic = "Автоматически (правая рука)"
+L.attributeBase = "Базовое значение"
+L.attributeBonus = "Бонус"
+L.healthRegen = "Восстановление здоровья"
+L.healthRegenNormal = "Вне боя"
+L.healthRegenCombat = "В бою"
+L.healthRegenCombatText = "Бой"
+L.healthRegenUnit = "ОЗ/с"
+L.healthRegenInfo = "Пассивное восстановление по данным игры; без исцеляющих заклинаний и самоисцеления."
+L.healthRegenUnavailable = "— = недоступно или защищено игрой."
 -- Block
 L["block"] = "Блок"
 L["blockt"] = "Вероятность блока"

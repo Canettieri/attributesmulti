@@ -3,7 +3,8 @@
 	Author: Eliote
 --]]
 
-local MAJOR, MINOR = "Elib-4.0", 3
+local _, L = ...
+local MAJOR, MINOR = "Elib-4.0", 7
 local Elib = LibStub:NewLibrary(MAJOR, MINOR)
 if not Elib then return end
 
@@ -102,18 +103,26 @@ function Elib.Register(easyObject)
 		EDDM.UIDropDownMenu_AddButton(L.CreateMenuTitle(TitanPlugins[id].menuText))
 		EDDM.UIDropDownMenu_AddButton(L.CreateMenuTitle(L["buttonText"]))
 
-		EDDM.UIDropDownMenu_AddButton(createTitanOption(id, Titan_L["TITAN_PANEL_MENU_SHOW_ICON"], "ShowIcon"))
-		EDDM.UIDropDownMenu_AddButton(createTitanOption(id, Titan_L["TITAN_PANEL_MENU_SHOW_LABEL_TEXT"], "ShowLabelText"))
+		if not easyObject.hideIconOption then
+			EDDM.UIDropDownMenu_AddButton(createTitanOption(id, Titan_L["TITAN_PANEL_MENU_SHOW_ICON"], "ShowIcon"))
+		end
+		if not easyObject.attributeMenuOrder and not easyObject.hideLabelOption then
+			EDDM.UIDropDownMenu_AddButton(createTitanOption(id, Titan_L["TITAN_PANEL_MENU_SHOW_LABEL_TEXT"], "ShowLabelText"))
+		end
 
 		local menus = easyObject.menus
+		if easyObject.attributeMenuOrder and menus then
+			for _, item in ipairs(menus) do
+				if item.barOption then initMenu(self, level, { item }, id) end
+			end
+		end
 		if menus then
 			for k, v in ipairs(menus) do
 				if v.type == "rightSideToggle" then
 					local info = {}
 					info.text = Titan_L["TITAN_CLOCK_MENU_DISPLAY_ON_RIGHT_SIDE"]
 					info.func = function()
-						TitanToggleVar(id, "DisplayOnRightSide");
-						TitanPanel_InitPanelButtons()
+						TitanUtils_SwapButtonSide(id)
 					end
 					info.checked = TitanGetVar(id, "DisplayOnRightSide")
 					EDDM.UIDropDownMenu_AddButton(info)
@@ -121,17 +130,22 @@ function Elib.Register(easyObject)
 			end
 		end
 
+		if easyObject.attributeMenuOrder and not easyObject.hideLabelOption then
+			EDDM.UIDropDownMenu_AddButton(createTitanOption(id, Titan_L["TITAN_PANEL_MENU_SHOW_LABEL_TEXT"], "ShowLabelText"))
+		end
+
 		if menus then
-			local hasExtraItems = false
+			local extraItems = {}
 			for _, item in ipairs(menus) do
-				if item.type ~= "rightSideToggle" then
-					hasExtraItems = true
-					break
+				if item.barOption then
+					if not easyObject.attributeMenuOrder then initMenu(self, level, { item }, id) end
+				elseif item.type ~= "rightSideToggle" then
+					extraItems[#extraItems + 1] = item
 				end
 			end
-			if hasExtraItems then
+			if #extraItems > 0 then
 				EDDM.UIDropDownMenu_AddSeparator()
-				initMenu(self, level, menus, id)
+				initMenu(self, level, extraItems, id)
 			end
 		end
 
@@ -174,6 +188,7 @@ function Elib.Register(easyObject)
 		setDefaultSavedVariables(sv, easyObject.menus)
 
 		self.registry = {
+			hideLabelOption = easyObject.hideLabelOption,
 			id = easyObject.id,
 			menuText = easyObject.name .. "|r",
 			buttonTextFunction = easyObject.getButtonText and "TitanPanelButton_Get" .. easyObject.id .. "ButtonText",

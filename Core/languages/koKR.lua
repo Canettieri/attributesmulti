@@ -7,6 +7,23 @@
 
 local _, L = ...;
 if GetLocale() == "koKR" then
+L.manaRegenCasting = "시전 중"
+L.manaRegenUnit = "마나/초"
+L.resistances = "마법 저항"
+L.defense = "방어 숙련"
+L.defenseMaximum = "현재 레벨의 기본 한도"
+L.weaponSkills = "무기 숙련"
+L.weaponSkillSelect = "바에 표시할 무기 숙련"
+L.weaponSkillAutomatic = "자동 (주 장비)"
+L.attributeBase = "기본"
+L.attributeBonus = "보너스"
+L.healthRegen = "생명력 재생"
+L.healthRegenNormal = "비전투 중"
+L.healthRegenCombat = "전투 중"
+L.healthRegenCombatText = "전투"
+L.healthRegenUnit = "생명력/초"
+L.healthRegenInfo = "게임에서 제공하는 지속 생명력 재생입니다. 치유 주문과 생기흡수는 제외됩니다."
+L.healthRegenUnavailable = "— = 사용할 수 없거나 게임에서 보호하는 값입니다."
 -- Block
 L["block"] = "막기"
 L["blockt"] = "방패 막기"

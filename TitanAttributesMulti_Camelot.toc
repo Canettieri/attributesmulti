@@ -38,3 +38,8 @@ Stats\TitanStamina.lua
 Stats\TitanStrength.lua
 Misc\TitanXP.lua
 Forever\TitanSpecializations.lua
+Stats\TitanHealthRegen.lua
+Core\LegacyAttributes.lua
+Stats\TitanResistances.lua
+Stats\TitanDefense.lua
+Stats\TitanWeaponSkills.lua

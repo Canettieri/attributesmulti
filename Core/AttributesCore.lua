@@ -117,8 +117,7 @@ function L.SimplifyNumber(number, decimal)
 end
 -----------------------------------------------
 local function ToggleRightSideDisplay(self, id) -- Right side display
-	TitanToggleVar(id, "DisplayOnRightSide");
-	TitanPanel_InitPanelButtons();
+	TitanUtils_SwapButtonSide(id)
 end
 
 local function ToggleShowBarBalance(self, id) -- Show Balance in Titan Bar
@@ -178,15 +177,17 @@ function L.PrepareAttributesMenu(eddm, self, id)
 	info.keepShownOnClick = true
 	eddm.UIDropDownMenu_AddButton(info);
 
-	local info = {}
-	info.text = ACE["TITAN_PANEL_MENU_SHOW_LABEL_TEXT"]
-	info.notCheckable = false
-	info.func = function()
-		TitanPanelRightClickMenu_ToggleVar({ id, "ShowLabelText", nil })
+	if not TitanPlugins[id].hideLabelOption then
+		local info = {}
+		info.text = ACE["TITAN_PANEL_MENU_SHOW_LABEL_TEXT"]
+		info.notCheckable = false
+		info.func = function()
+			TitanPanelRightClickMenu_ToggleVar({ id, "ShowLabelText", nil })
+		end
+		info.checked = TitanGetVar(id, "ShowLabelText")
+		info.keepShownOnClick = true
+		eddm.UIDropDownMenu_AddButton(info)
 	end
-	info.checked = TitanGetVar(id, "ShowLabelText")
-	info.keepShownOnClick = true
-	eddm.UIDropDownMenu_AddButton(info)
 
 	L.AddBarPositionMenu(eddm, id)
 

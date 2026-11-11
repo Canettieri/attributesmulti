@@ -31,3 +31,7 @@ Stats\TitanParry.lua
 Stats\TitanSpellPower.lua
 Stats\TitanStamina.lua
 Stats\TitanStrength.lua
+Core\LegacyAttributes.lua
+Stats\TitanResistances.lua
+Stats\TitanDefense.lua
+Stats\TitanWeaponSkills.lua

@@ -24,10 +24,10 @@ Titan Panel is required.
 | Game client | Included plugins | Additional coverage |
 | --- | ---: | --- |
 | Retail / Midnight | 28 | Full combat-stat set, item level, achievements, honor, honorable kills, PvP results, quests, experience, deaths, and specializations |
-| Mists of Pandaria Classic | 20 | Combat stats, Hit Chance, Mastery, Spirit, quests, achievements, and experience |
-| The Burning Crusade Classic | 18 | Combat stats, Hit Chance, Spirit, quests, and experience |
-| Classic Era | 15 | Combat stats, Spirit, quests, and experience |
-| WoW: Forever / Camelot | 19 | Classic combat stats, Hit Chance, Haste, Ranged Power, Spirit, modern quests, experience, and talent profiles |
+| Mists of Pandaria Classic | 21 | Combat stats, Hit Chance, Mastery, Spirit, quests, achievements, and experience |
+| The Burning Crusade Classic | 21 | Combat stats, Hit Chance, Spirit, quests, and experience |
+| Classic Era | 18 | Combat stats, Spirit, quests, and experience |
+| WoW: Forever / Camelot | 23 | Classic combat stats, Hit Chance, Haste, Ranged Power, Spirit, modern quests, experience, and talent profiles |
 
 Each game client loads only the plugins listed in its corresponding `.toc` file.
 
@@ -49,6 +49,11 @@ Retail also includes plugins for Achievement Points, player deaths, Honor, Honor
 - **Item Level** displays equipped and overall item level, the current-session change, and saved equipped item levels for characters from the same faction.
 - **PvP Results** displays wins, losses, and total matches for battlegrounds, rated battlegrounds, Battleground Blitz, and arenas.
 - **Quests** shows active, completed, and maximum quest counts.
+- **Mana Regeneration** is loaded on every supported client. The bar shows the normal rate with decimals and no unit; the tooltip also shows the rate while casting in mana per second. The normal rate is not automatically the active rate during combat. Protected readings show Combat in red during combat, or an em dash outside combat, and recover automatically when readable. Session changes retain decimals.
+- **Magic Resistances** displays Fire, Nature, Frost, Shadow, and Arcane side by side on the bar and in the tooltip. It loads on Classic Era, TBC, Mists, and Forever when the API exists.
+- **Defense** shows the effective defense skill and level-based maximum, with nonzero bonuses and session change in the tooltip, on Classic Era, TBC, and Forever.
+- **Weapon Skills** shows a learned weapon skill and its maximum rank, including temporary and equipment bonuses. The tooltip lists learned weapons; right-click to choose which skill appears on the bar. It loads on Classic Era, TBC, and Forever. Classic clients using the legacy skill list require the weapon-skills category to be expanded for those rows to be available.
+- **Health Regeneration** is available on Forever (Camelot), using the native `GetHealthRegen` API. The bar selects the normal or combat rate automatically, without units, and shows a red Combat label when the combat rate is zero. The tooltip shows both passive rates in HP/s and the session balance. It does not measure healing spells or leech. Clients without this API do not register the plugin. Combat readings still need in-game validation.
 - **Honor** and **Honorable Kills** track your current PvP progression and session changes.
 
 ## Specializations (Retail)

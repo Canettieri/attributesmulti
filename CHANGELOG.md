@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [9.3.0] - 2026-11-11
+
+### Fixed
+
+- Preserve fractional mana-regeneration rates and session changes, show the casting rate in tooltips, and replace unavailable readings instead of keeping stale values. Restricted readings during combat show a red Combat label.
+- Use Titan's side-switch API in attribute and default plugin menus instead of the removed panel-initialization function.
+- Resolve the addon namespace locally when building default plugin menus.
+
+### Added
+
+- Added Magic Resistances with all five schools side by side on the bar and named values in the tooltip.
+- Added Defense with the current value, level-based maximum, and session balance.
+- Added Weapon Skills with automatic main-hand skill selection, manual selection of learned skills, and session balance.
+- Added Health Regeneration using the game's normal and combat regeneration rates.
+
+| New plugin | Retail / Midnight | Mists of Pandaria Classic | TBC Classic | Classic Era | WoW: Forever (Camelot) |
+| --- | --- | --- | --- | --- | --- |
+| Magic Resistances | No | Yes | Yes | Yes | Yes |
+| Defense | No | No | Yes | Yes | Yes |
+| Weapon Skills | No | No | Yes | Yes | Yes |
+| Health Regeneration | No | No | No | No | Yes |
+
+Each plugin requires its corresponding game API to be available on the client. Defense, Weapon Skills, and Health Regeneration include translations in all six supported languages.
+
 ## [9.2.0] - 2026-11-08
 
 ### Fixed

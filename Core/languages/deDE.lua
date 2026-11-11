@@ -7,6 +7,23 @@
 
 local _, L = ...;
 if GetLocale() == "deDE" then
+L.manaRegenCasting = "Während des Zauberwirkens"
+L.manaRegenUnit = "M/s"
+L.resistances = "Magiewiderstände"
+L.defense = "Verteidigung"
+L.defenseMaximum = "Basislimit für eure Stufe"
+L.weaponSkills = "Waffenfertigkeiten"
+L.weaponSkillSelect = "Waffenfertigkeit in der Leiste"
+L.weaponSkillAutomatic = "Automatisch (Waffenhand)"
+L.attributeBase = "Basis"
+L.attributeBonus = "Bonus"
+L.healthRegen = "Gesundheitsregeneration"
+L.healthRegenNormal = "Außerhalb des Kampfes"
+L.healthRegenCombat = "Im Kampf"
+L.healthRegenCombatText = "Kampf"
+L.healthRegenUnit = "LP/s"
+L.healthRegenInfo = "Vom Spiel gemeldete passive Regeneration; ohne Heilzauber und Lebensraub."
+L.healthRegenUnavailable = "— = nicht verfügbar oder vom Spiel geschützt."
 -- Achievements (default)
 L["hintachiev"] = "|cFFB4EEB4Hinweis:|r |cFFFFFFFFLinksklick öffnet dein\rErfolgsfenster.|r"
 -- Block

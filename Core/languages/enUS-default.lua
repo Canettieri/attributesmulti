@@ -5,6 +5,23 @@
 --]]
 
 local _, L = ...;
+L.manaRegenCasting = "While casting"
+L.manaRegenUnit = "M/s"
+L.resistances = "Magic Resistances"
+L.defense = "Defense"
+L.defenseMaximum = "Base limit for your level"
+L.weaponSkills = "Weapon Skills"
+L.weaponSkillSelect = "Weapon skill on the bar"
+L.weaponSkillAutomatic = "Automatic (main hand)"
+L.attributeBase = "Base"
+L.attributeBonus = "Bonus"
+L.healthRegen = "Health Regeneration"
+L.healthRegenNormal = "Out of combat"
+L.healthRegenCombat = "In combat"
+L.healthRegenCombatText = "Combat"
+L.healthRegenUnit = "HP/s"
+L.healthRegenInfo = "Passive regeneration reported by the game; excludes healing spells and leech."
+L.healthRegenUnavailable = "— = unavailable or protected by the game."
 -- Achievements (default)
 L["achieve"] = "Achievements"
 L["achievepts"] = "Achievement Points"
