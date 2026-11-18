@@ -25,9 +25,9 @@ Titan Panel is required.
 | --- | ---: | --- |
 | Retail / Midnight | 28 | Full combat-stat set, item level, achievements, honor, honorable kills, PvP results, quests, experience, deaths, and specializations |
 | Mists of Pandaria Classic | 21 | Combat stats, Hit Chance, Mastery, Spirit, quests, achievements, and experience |
-| The Burning Crusade Classic | 21 | Combat stats, Hit Chance, Spirit, quests, and experience |
-| Classic Era | 18 | Combat stats, Spirit, quests, and experience |
-| WoW: Forever / Camelot | 23 | Classic combat stats, Hit Chance, Haste, Ranged Power, Spirit, modern quests, experience, and talent profiles |
+| The Burning Crusade Classic | 22 | Combat stats, Hit Chance, Spirit, quests, and experience |
+| Classic Era | 19 | Combat stats, Spirit, quests, and experience |
+| WoW: Forever / Camelot | 24 | Classic combat stats, Hit Chance, Haste, Ranged Power, Spirit, modern quests, experience, and talent profiles |
 
 Each game client loads only the plugins listed in its corresponding `.toc` file.
 
@@ -53,6 +53,7 @@ Retail also includes plugins for Achievement Points, player deaths, Honor, Honor
 - **Magic Resistances** displays Fire, Nature, Frost, Shadow, and Arcane side by side on the bar and in the tooltip. It loads on Classic Era, TBC, Mists, and Forever when the API exists.
 - **Defense** shows the effective defense skill and level-based maximum, with nonzero bonuses and session change in the tooltip, on Classic Era, TBC, and Forever.
 - **Weapon Skills** shows a learned weapon skill and its maximum rank, including temporary and equipment bonuses. The tooltip lists learned weapons; right-click to choose which skill appears on the bar. It loads on Classic Era, TBC, and Forever. Classic clients using the legacy skill list require the weapon-skills category to be expanded for those rows to be available.
+- **Healing Power** displays the spell healing bonus returned by the game, with a session balance and an optional balance on the bar. It is available on Classic Era, TBC Classic, and Forever (Camelot). Unavailable or protected readings show a dash.
 - **Health Regeneration** is available on Forever (Camelot), using the native `GetHealthRegen` API. The bar selects the normal or combat rate automatically, without units, and shows a red Combat label when the combat rate is zero. The tooltip shows both passive rates in HP/s and the session balance. It does not measure healing spells or leech. Clients without this API do not register the plugin. Combat readings still need in-game validation.
 - **Honor** and **Honorable Kills** track your current PvP progression and session changes.
 

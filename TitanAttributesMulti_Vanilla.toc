@@ -35,3 +35,4 @@ Core\LegacyAttributes.lua
 Stats\TitanResistances.lua
 Stats\TitanDefense.lua
 Stats\TitanWeaponSkills.lua
+Stats\TitanHealingPower.lua

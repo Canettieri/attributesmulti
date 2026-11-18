@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [9.4.0] - 2026-11-18
+
+### Added
+
+- Added a separate Healing Power plugin on Classic Era, TBC Classic, and Forever (Camelot), with session balances, six translations, and protected-value handling.
+
 ## [9.3.0] - 2026-11-11
 
 ### Fixed
