@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [9.5.0] - 2026-11-23
+
+### Fixed
+
+- Fixed **Display on Right Side** in the Honor, PvP, Quests, Experience, and Specializations menus using the Titan Panel side-switch API.
+
 ## [9.4.0] - 2026-11-18
 
 ### Added

@@ -218,17 +218,21 @@ local function PrepareMenu(eddm, self, id, level, menuList)
         { "ShowIcon", ACE["TITAN_PANEL_MENU_SHOW_ICON"] },
         { "ShowLabelText", ACE["TITAN_PANEL_MENU_SHOW_LABEL_TEXT"] },
         { "ShowTalentPoints", L["foreverTalentPoints"] },
-        { "DisplayOnRightSide", ACE["TITAN_CLOCK_MENU_DISPLAY_ON_RIGHT_SIDE"] },
     }) do
         local key = option[1]
         eddm.UIDropDownMenu_AddButton({ text = option[2], checked = TitanGetVar(id, key), keepShownOnClick = true,
             func = function()
                 TitanToggleVar(id, key)
-                if key == "DisplayOnRightSide" then TitanPanel_InitPanelButtons() end
                 Refresh(self)
             end,
         })
     end
+    eddm.UIDropDownMenu_AddButton({
+        text = ACE["TITAN_CLOCK_MENU_DISPLAY_ON_RIGHT_SIDE"],
+        checked = TitanGetVar(id, "DisplayOnRightSide"),
+        keepShownOnClick = true,
+        func = function() TitanUtils_SwapButtonSide(id) end,
+    })
     L.AddBarPositionMenu(eddm, id)
     eddm.UIDropDownMenu_AddButton({ text = ACE["TITAN_PANEL_MENU_HIDE"], notCheckable = true,
         func = function() TitanPanelRightClickMenu_Hide(id) end })

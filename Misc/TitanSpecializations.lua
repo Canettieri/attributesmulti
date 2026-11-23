@@ -413,8 +413,7 @@ local function PrepareMenu(eddm, self, id, level, menuList)
         checked = TitanGetVar(id, "DisplayOnRightSide"),
         keepShownOnClick = true,
         func = function()
-            TitanToggleVar(id, "DisplayOnRightSide")
-            TitanPanel_InitPanelButtons()
+            TitanUtils_SwapButtonSide(id)
         end,
     })
     L.AddBarPositionMenu(eddm, id)

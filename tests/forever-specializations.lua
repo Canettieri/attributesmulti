@@ -46,7 +46,6 @@ PlayerSpellsUtil = { ToggleClassTalentOrSpecFrame = function() opened = opened +
 TitanPlugins = {}
 TitanPanelButton_UpdateButton = function() end
 TitanPanelButton_UpdateTooltip = function() end
-TitanPanel_InitPanelButtons = function() end
 TitanPanelRightClickMenu_Hide = function() end
 TitanGetVar = function(_, key) return config.savedVariables[key] end
 TitanToggleVar = function(_, key) config.savedVariables[key] = not config.savedVariables[key] end
@@ -68,6 +67,12 @@ L.Elib = function(value)
 end
 assert(loadfile("Forever/TitanSpecializations.lua"))("TitanAttributesMulti", L)
 local id = config.id
+local swaps = 0
+TitanUtils_SwapButtonSide = function(pluginID)
+    assert(pluginID == id)
+    swaps = swaps + 1
+    TitanToggleVar(pluginID, "DisplayOnRightSide")
+end
 local function bar() return select(2, config.getButtonText()) end
 local function menu()
     local entries = {}
@@ -121,6 +126,13 @@ assert(TitanForeverSpecializationsMultiDB.gearByGroup[1] == 43)
 bind[1].func()
 assert(TitanForeverSpecializationsMultiDB.gearByGroup[1] == nil)
 assert(TitanSpecializationsMultiDB == retailDB and retailDB.gearBySpec[62] == 999)
+for _, expected in ipairs({ true, false }) do
+    local sideOption = find("Right side")
+    assert(sideOption.checked == not expected)
+    sideOption.func()
+    assert(TitanGetVar(id, "DisplayOnRightSide") == expected)
+end
+assert(swaps == 2)
 find(L.foreverTalentPoints).func()
 assert(not bar():find("31/15/5", 1, true))
 assert(config.onClick(frame, "LeftButton") == true and opened == 1)

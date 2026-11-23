@@ -148,7 +148,7 @@ function PrepareMenu(eddm, self, id)
 
 	local info = {};
 	info.text = ACE["TITAN_CLOCK_MENU_DISPLAY_ON_RIGHT_SIDE"];
-	info.func = function() TitanToggleVar(id, "DisplayOnRightSide"); TitanPanel_InitPanelButtons(id); end
+	info.func = function() TitanUtils_SwapButtonSide(id) end
 	info.checked = TitanGetVar(id, "DisplayOnRightSide");
 	info.keepShownOnClick = true
 	eddm.UIDropDownMenu_AddButton(info);

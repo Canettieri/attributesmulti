@@ -85,8 +85,7 @@ function PrepareMenu(eddm, self, id)
 	info = {};
 	info.text = ACE["TITAN_CLOCK_MENU_DISPLAY_ON_RIGHT_SIDE"];
 	info.func = function()
-		TitanToggleVar(id, "DisplayOnRightSide")
-		TitanPanel_InitPanelButtons()
+		TitanUtils_SwapButtonSide(id)
 	end
 	info.arg1 = id
 	info.checked = TitanGetVar(id, "DisplayOnRightSide");
